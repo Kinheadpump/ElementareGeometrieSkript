@@ -1180,5 +1180,50 @@ Nun ist einerseits der Nebenwinkel von \(\angle BAE\) ein rechter Winkel. Andere
 Dies führt zu einem Widerspruch. Daher muss \(AD \parallel g\) gelten, und \(AD = g'\) ist die gesuchte Parallele zu \(g\) durch \(A\).
 \end{proof}
 
+\subsection{Bewegung in der Hilbertebene}
 
+\begin{definition}[Bewegung]
+Es sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) eine angeordnete Inzidenzgeometrie, die die Axiome (I1--I3; S1--S3) erfüllt. Eine \textbf{Bewegung} ist eine Bijektion \(\phi: \Pi \to \Pi\), welche die folgenden Bedingungen erfüllt:
+\begin{enumerate}
+    \item \(g \in \Gamma \iff \phi(g) \in \Gamma\),
+    \item Für alle \(A, B, C \in \Pi\) gilt:
+    \[
+    A * B * C \iff \phi(A) * \phi(B) * \phi(C).
+    \]
+    Insbesondere gilt:
+    \[
+    \phi(\overline{AB}) = \overline{\phi(A)\phi(B)} \quad \text{und} \quad \phi(\overrightarrow{\rm AB}) = \overrightarrow{\rm \phi(A)\phi(B)} \quad \text{für } A \neq B.
+    \]
+    \item Für alle \(A, B \in \Pi\) mit \(A \neq B\) gilt:
+    \[
+    \overline{AB} \cong \overline{\phi(A)\phi(B)}.
+    \]
+    \item Für alle \(A, B, C \in \Pi\), die nicht kollinear sind, gilt:
+    \[
+    \angle BAC \cong_w \angle \phi(B)\phi(A)\phi(C).
+    \]
+\end{enumerate}
+\end{definition}
+
+\textbf{Bemerkungen:}
+Die Menge der Bewegungen 
+\[
+\{\phi: \Pi \to \Pi \mid \phi \text{ ist eine Bewegung}\}
+\]
+bildet mit der Komposition eine Gruppe.
+
+\begin{definition}[Existenz von Bewegungen]
+In einer Hilbertebene sagen wir, dass die Bedingung \textbf{(EB)} erfüllt ist, wenn die folgenden Eigenschaften gelten:
+\begin{enumerate}
+    \item Für alle \(A, A' \in \Pi\) existiert eine Bewegung \(\phi: \Pi \to \Pi\) mit \(\phi(A) = A'\).
+    \item Für alle \(O \in \Pi\) und \(A, A' \in \Pi \setminus \{O\}\) existiert eine Bewegung \(\phi: \Pi \to \Pi\), sodass:
+    \[
+    \phi(O) = O \quad \text{und} \quad \phi(\overrightarrow{\rm OA}) = \overrightarrow{\rm OA'}.
+    \]
+    \item Für jede Gerade \(g \in \Gamma\) existiert eine Bewegung \(\phi: \Pi \to \Pi\), sodass:
+    \[
+    \forall P \in g : \phi(P) \in g \quad \text{und} \quad \phi \text{ vertauscht die beiden Seiten von } g.
+    \]
+\end{enumerate}
+\end{definition}
 \end{document}
