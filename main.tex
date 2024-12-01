@@ -859,5 +859,146 @@ In einer Hilbertebene sei \(\alpha = \angle BAC\) ein Winkel. Seien \(B'\) und \
     Mit den Bezeichnungen aus der Skizze gilt: $\alpha$, $\alpha'$ sind Nebenwinkel von $\beta$. Da $\beta$ kongruent zu sich selbst ist, folgt aus Proposition~\ref{prop:nebenwinkel_kongruent}: $$\alpha\cong_w\alpha'$$
 \end{proof}
 
+\begin{proposition}[Summe von Winkeln]
+In einer Hilbertebene seien $\angle BAC$ und ein Strahl $\overrightarrow{\rm AD}$ im Inneren von $\angle BAC$ gegeben. Gilt 
+\[
+\angle D'A'C' \cong_w \angle DAC \quad \text{und} \quad \angle B'A'D' \cong_w \angle BAD,
+\]
+und liegen $\overrightarrow{\rm A'B'}$, $\overrightarrow{\rm A'C'}$ auf gegenüberliegenden Seiten von $\overrightarrow{\rm A'D'}$, so bilden $\overrightarrow{\rm A'B'}$ und $\overrightarrow{\rm A'C'}$ einen Winkel und es gilt:
+\[
+\angle B'A'C' \cong_w \angle BAC \quad \text{und} \quad \overrightarrow{\rm A'D'} \text{ liegt im Inneren von } \angle B'A'C'.
+\]
+\begin{proof}
+Konstruiere die Gerade $BC$ gemäß (K1). Nach Proposition 1.16 gilt $\overrightarrow{\rm AD} \cap BC \neq \emptyset$. Ersetze $D$ durch den Schnittpunkt, dann können wir ohne Beschränkung der Allgemeinheit (o.B.d.A.) annehmen: $B * D * C$. 
+
+Durch Ersetzen der Punkte $B'$, $C'$, $D'$ durch Punkte auf den gleichen Strahlen können wir annehmen:
+\[
+AB \cong A'B', \quad AC \cong A'C', \quad AD \cong A'D'.
+\]
+Zusammen mit der Voraussetzung folgt aus (K6):
+\[
+BD \cong B'D', \quad \angle BDA \cong_w \angle B'D'A', \quad DC \cong D'C', \quad \angle ADC \cong_w \angle A'D'C'.
+\]
+
+Sei $E' \in \overrightarrow{\rm B'D'}$ mit $B' * D' * E'$. Nach Konstruktion ist $\angle A'D'E'$ ein Nebenwinkel zu $\angle A'D'B' \cong_w \angle ADB$. Aus Proposition 1.29 folgt:
+\[
+\angle A'D'E' \cong_w \angle ADC \cong_w \angle A'D'C'.
+\]
+Beide Winkel liegen auf derselben Seite von $\overrightarrow{\rm A'B'}$. Mit (K4) folgt:
+\[
+\angle A'D'E' \cong_w \angle ABC.
+\]
+Daraus folgt: $B'$, $D'$, $C'$ liegen auf einer Geraden. Nach (K3) gilt daher $BC \cong B'C'$. 
+
+Aus (K6) oben wissen wir auch:
+\[
+\angle ABD \cong_w \angle A'B'D', \quad BC \cong B'C', \quad AB \cong A'B',
+\]
+woraus erneut mit (K6) folgt:
+\[
+\angle BAC \cong_w \angle B'A'C'.
+\]
+
+Da $\angle D'A'C'$ ein Winkel ist, sind $A'$, $B'$, $C'$ nicht kollinear. Somit ist $\angle B'A'C'$ ein Winkel. Da $B'C'$ auf verschiedenen Seiten von $\overrightarrow{\rm A'D'}$ liegen, folgt $B' * D' * C'$ und somit liegt $\overrightarrow{\rm A'D'}$ im Inneren von $\angle B'A'C'$.
+\end{proof}
+\end{proposition}
+
+\begin{definition}[Die Relation \(<\) für Winkel]
+In einer Hilbertebene seien \(\angle BAC\) und \(\angle EDF\) zwei Winkel. Wir sagen:
+\[
+\angle BAC < \angle EDF,
+\]
+falls ein Strahl \(\overrightarrow{\rm DG}\) existiert, der im Inneren von \(\angle EDF\) liegt, sodass gilt:
+\[
+\angle BAC \cong_w \angle GDF.
+\]
+\end{definition}
+
+\begin{lemma}[Wohldefinierte Ordnung für Winkel]\label{lemma:wohldefiniert_ordnung_winkel}
+In einer Hilbertebene gilt:
+\begin{enumerate}
+    \item Falls \(\alpha \cong_w \alpha'\) und \(\beta \cong_w \beta'\), so folgt:
+    \[
+    \alpha < \beta \iff \alpha' < \beta'.
+    \]
+    \item Die Relation \(<\) liefert eine strenge Totalordnung auf den Kongruenzklassen von Winkeln:
+    \begin{enumerate}
+        \item[\((2.1)\)] \(\alpha < \beta\) und \(\beta < \gamma \implies \alpha < \gamma.\)
+        \item[\((2.2)\)] Für Winkel \(\alpha, \beta\) gilt genau eine der folgenden Relation:
+        \[
+        \alpha < \beta, \quad \alpha = \beta, \quad \alpha > \beta.
+        \]
+    \end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Analog zu Proposition~\ref{prop:wohldefinierte_ordnung}.
+\end{proof}
+
+\begin{definition}[Rechter Winkel]
+In einer Hilbertebene heißt ein Winkel \(\alpha\) \textbf{rechter Winkel}, falls er kongruent zu einem seiner Nebenwinkel ist.
+Zwei Geraden heißen \textbf{orthogonal}, falls sie sich schneiden und einer (und daher alle) der durch ihren Schnittpunkt gebildeten Winkel rechte Winkel sind.
+\end{definition}
+
+\begin{proposition}[Alle Rechte Winkel sind kongruent]
+In einer Hilbertebene sind zwei rechte Winkel kongruent.
+\end{proposition}
+
+\begin{proof}
+Sei \(\alpha = \angle CAB\) und \(\alpha' = \angle C'A'B'\) rechte Winkel. Nach Definition sind sie kongruent zu ihren jeweiligen Nebenwinkeln \(\beta\) und \(\beta'\).
+
+Angenommen, \(\alpha \not\cong_w \alpha'\), dann folgt nach Lemma~\ref{lemma:wohldefiniert_ordnung_winkel}, dass \(\alpha < \alpha'\) oder \(\alpha' < \alpha\). Ohne Einschränkung sei \(\alpha < \alpha'\), d.h., es existiert ein Strahl \(\overrightarrow{\rm A'E'}\) im Inneren von \(\alpha'\), sodass \(\alpha \cong_w \angle E'A'B'\).
+
+Nun folgt, dass \(\overrightarrow{\rm A'C'}\) im Inneren von \(\angle D'A'E'\ liegt\), was wiederum bedeutet, dass \(\beta' < \angle E'A'D'\). Aber \(\angle E'A'D'\) ist ein Nebenwinkel von \(\angle E'A'B'\), und da \(\angle E'A'B' \cong_w \alpha\), folgt nach Proposition~\ref{prop:nebenwinkel_kongruent}, dass \(\beta \cong_w \angle E'A'D'\).
+
+Somit gilt \(\beta' < \beta\), aber da \(\alpha \cong_w \beta\) und \(\alpha' \cong_w \beta'\), ergibt sich der Widerspruch:
+\[
+\alpha' < \alpha \quad \text{und} \quad \alpha < \alpha'.
+\]
+Daher muss \(\alpha \cong_w \alpha'\) gelten, und alle rechten Winkel sind kongruent.
+\end{proof}
+
+\subsection{Geometrie in der Hilbertebene}
+
+\begin{proposition}[Pons asinorum]
+In einer Hilbertebene sei \(\triangle ABC\) gegeben. Dann gilt:
+\[
+\overline{AB} \cong \overline{AC} \iff \angle ABC \cong_w \angle ACB.
+\]
+\end{proposition}
+\subsection{Geometrie in der Hilbertebene}
+
+\begin{proposition}[Pons Asinorum]
+In einer Hilbertebene sei \(\triangle ABC\) ein Dreieck. Dann gilt:
+\[
+\overline{AB} \cong \overline{AC} \iff \angle ABC \cong_w \angle ACB.
+\]
+\end{proposition}
+
+\begin{proof}
+\textbf{Hinrichtung:} Angenommen, \(\overline{AB} \cong \overline{AC}\). Nach (S2) existieren Punkte \(D \in \overline{AB}\) und \(E \in \overline{AC}\) mit \(A * B * D\) und \(A * C * E\). Nach (K1) existieren außerdem Punkte \(F \in \overline{AD}\) und \(G \in \overline{AE}\) mit \(A * B * F\), \(A * C * G\) und \(\overline{AF} \cong \overline{AG}\).
+
+Nach (K6) gilt:
+\[
+\angle AFC \cong_w \angle AGB \quad \text{und} \quad \angle ACF \cong_w \angle ABG.
+\]
+Mit Lemma 1.22 erhalten wir \(\overline{BF} \cong \overline{CG}\). 
+
+(K6) impliziert, dass die Dreiecke \(\triangle FBC\) und \(\triangle GCB\) kongruent sind. Insbesondere gilt:
+\[
+\angle CBG \cong_w \angle BCF \implies \angle ABC \cong_w \angle ACB.
+\]
+
+\textbf{Rückrichtung:} Angenommen, \(\angle ABC \cong_w \angle ACB\), aber \(\overline{AB} \not\cong \overline{AC}\). Nach Satz 1.24 existiert ohne Einschränkung der Allgemeinheit ein Punkt \(D \in \overline{AC}\), sodass \(\overline{CD} \cong \overline{AB}\).
+
+Nach (K6) sind die Dreiecke \(\triangle DBC\) und \(\triangle ABC\) kongruent. Insbesondere gilt:
+\[
+\angle DBC \cong_w \angle ACB \cong_w \angle ABC.
+\]
+Mit (K4) folgt, dass \(\overrightarrow{\rm BD} = \overrightarrow{\rm BA}\). Die Eindeutigkeit impliziert, dass \(D = A\), da \(D, A \in \overline{AC}\) und \(\overline{BA} \cap \overline{AC} \leq 1\). Dies steht im Widerspruch dazu, dass \(D \neq A\) und \(D * C * A\).
+
+Somit muss \(\overline{AB} \cong \overline{AC}\) gelten.
+\end{proof}
 
 \end{document}
