@@ -762,7 +762,7 @@ Ein Tupel \((\Pi, \Gamma, Z, \cong, \cong_w)\), das die oben genannten Axiome er
 
 \begin{lemma}[\(\cong_w\) ist eine Äquivalenzrelation]
 \label{lemma:konw_aequivalenz}
-Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxiome_winkel}. Dann ist \(\cong_w\) auf der Menge 
+Auf einer Hilbertebene ist \(\cong_w\) auf der Menge 
 \[
 \{\angle ABC : A, B, C \in \Pi \text{ nicht kollinear}\}
 \]
@@ -775,7 +775,7 @@ Der Beweis erfolgt analog zu Lemma~\ref{lemma:kong_ist_äqu}.
 
 \begin{definition}[Summe von Winkeln]
 \label{def:summe_winkel}
-Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxiome_winkel}. Sei \(\angle BAC\) ein Winkel und \(\overrightarrow{\rm AD}\) ein Strahl im Inneren von \(\angle BAC\). Wir definieren die Summe der Winkel durch:
+In einer Hilbertebene, sei \(\angle BAC\) ein Winkel und \(\overrightarrow{\rm AD}\) ein Strahl im Inneren von \(\angle BAC\). Wir definieren die Summe der Winkel durch:
 \[
 \angle DAC + \angle BAD := \angle BAC.
 \]
@@ -783,11 +783,11 @@ Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxi
 
 \begin{definition}[Nebenwinkel]
 \label{def:nebenwinkel}
-Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxiome_winkel}. Sei \(\angle BAC\) ein Winkel und \(D \in \overrightarrow{\rm AC}\), wobei \(D\) auf der anderen Seite von \(C\) bezüglich \(A\) liegt. Dann nennen wir \(\angle DAB\) den \emph{Nebenwinkel} von \(\angle BAC\).
+In einer Hilbertebene, sei \(\angle BAC\) ein Winkel und \(D \in \overrightarrow{\rm AC}\), wobei \(D\) auf der anderen Seite von \(C\) bezüglich \(A\) liegt. Dann nennen wir \(\angle DAB\) den \emph{Nebenwinkel} von \(\angle BAC\).
 \end{definition}
 
 \begin{proposition}[Nebenwinkel sind kongruent]\label{prop:nebenwinkel_kongruent}
-Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxiome_winkel}. Es sei \(\angle BAD\) ein Nebenwinkel von \(\angle BAC\). Ist \(\angle B'A'D'\) Nebenwinkel von \(\angle B'A'C'\) und \(\angle BAC \cong_w \angle B'A'C'\), so gilt:
+In einer Hilbertebene, sei \(\angle BAD\) ein Nebenwinkel von \(\angle BAC\). Ist \(\angle B'A'D'\) Nebenwinkel von \(\angle B'A'C'\) und \(\angle BAC \cong_w \angle B'A'C'\), so gilt:
 \[
 \angle BAD \cong_w \angle B'A'D'.
 \]
@@ -960,16 +960,7 @@ Daher muss \(\alpha \cong_w \alpha'\) gelten, und alle rechten Winkel sind kongr
 \end{proof}
 
 \subsection{Geometrie in der Hilbertebene}
-
-\begin{proposition}[Pons asinorum]
-In einer Hilbertebene sei \(\triangle ABC\) gegeben. Dann gilt:
-\[
-\overline{AB} \cong \overline{AC} \iff \angle ABC \cong_w \angle ACB.
-\]
-\end{proposition}
-\subsection{Geometrie in der Hilbertebene}
-
-\begin{proposition}[Pons Asinorum]
+\begin{proposition}[Pons Asinorum]\label{prop:pons_asinorum}
 In einer Hilbertebene sei \(\triangle ABC\) ein Dreieck. Dann gilt:
 \[
 \overline{AB} \cong \overline{AC} \iff \angle ABC \cong_w \angle ACB.
@@ -1000,5 +991,194 @@ Mit (K4) folgt, dass \(\overrightarrow{\rm BD} = \overrightarrow{\rm BA}\). Die 
 
 Somit muss \(\overline{AB} \cong \overline{AC}\) gelten.
 \end{proof}
+
+\begin{proposition}[SSS]
+In einer Hilbertebene gilt für zwei Dreiecke \(\triangle ABC\) und \(\triangle A'B'C'\):
+\[
+\overline{AB} \cong \overline{A'B'}, \quad \overline{AC} \cong \overline{A'C'}, \quad \overline{BC} \cong \overline{B'C'}
+\]
+impliziert:
+\[
+\angle ABC \cong_w \angle A'B'C', \quad \angle BAC \cong_w \angle B'A'C', \quad \angle ACB \cong_w \angle B'C'A'.
+\]
+\end{proposition}
+
+\begin{proof}
+Nach (K4) und (K1) konstruieren wir einen Winkel \(\angle C'A'B'' \cong_w \angle BAC\), sodass \(B''\) auf der anderen Seite von \(B'\) bezüglich \(\overline{A'C'}\) liegt und \(\overline{A'B''} \cong \overline{A'B'}\) erfüllt.
+
+Nach (K6) folgt:
+\[
+\overline{BC} \cong \overline{B''C'}.
+\]
+
+Konstruiere die Strecke \(\overline{B'B''}\). Dann gilt:
+\[
+\overline{A'B'} \cong \overline{A'D} \cong \overline{A'B''},
+\]
+was bedeutet, dass \(\triangle B''A'B'\) ein gleichschenkliges Dreieck ist. 
+
+Mit Hilfe von Proposition~\ref{prop:pons_asinorum} erhalten wir:
+\[
+\angle ABB' \cong_w \angle AB'B.
+\]
+
+Auf ähnliche Weise ist \(\overline{B'C'} \cong \overline{B''C'}\), und das Dreieck \(\triangle BCB'\) ist gleichschenklig. Es folgt:
+\[
+\angle B''B'C \cong_w \angle B'B''C.
+\]
+
+Damit folgt:
+\[
+\angle A'B'C' \cong_w \angle A'B''C'.
+\]
+
+Da wir bereits wissen, dass \(\angle A'B''C' \cong_w \angle ABC\), erhalten wir durch Transitivität:
+\[
+\angle ABC \cong_w \angle A'B'C'.
+\]
+
+Die Behauptung folgt nun aus (K6), da \(\triangle ABC \cong \triangle A'B'C'\) ist und somit auch:
+\[
+\angle BAC \cong_w \angle B'A'C', \quad \angle ACB \cong_w \angle B'C'A'.
+\]
+\end{proof}
+
+\begin{proposition}[Außenwinkelsatz]
+In einer Hilbertebene sei \(\triangle ABC\) ein gegebenes Dreieck und \(D \in \overrightarrow{\rm BC}\) mit \(D * C * B\). Dann gilt:
+\[
+\angle BAC < \angle ACD \quad \text{und} \quad \angle ABC < \angle ACD.
+\]
+\end{proposition}
+
+\begin{proposition}[WSW]
+In einer Hilbertebene gelten für zwei Dreiecke \(\triangle ABC\) und \(\triangle A'B'C'\):
+\[
+\overline{AB} \cong \overline{A'B'}, \quad \angle BAC \cong_w \angle B'A'C', \quad \angle ABC \cong_w \angle A'B'C'
+\]
+impliziert:
+\[
+\overline{BC} \cong \overline{B'C'}, \quad \overline{AC} \cong \overline{A'C'}, \quad \angle ACB \cong_w \angle A'C'B'.
+\]
+\end{proposition}
+
+\begin{proof}
+Nach (K1) existiert ein Punkt \(C'' \in \overline{A'C'}\), sodass:
+\[
+\overline{A'C''} \cong \overline{AC}.
+\]
+
+Nach (K6) gilt:
+\[
+\angle A'B'C'' \cong_w \angle ABC \cong_w \angle A'B'C'.
+\]
+
+Da \(\angle A'B'C'' \cong_w \angle A'B'C'\), folgt:
+\[
+\overrightarrow{\rm B'C''} = \overrightarrow{\rm B'C'}.
+\]
+
+Somit liegt \(C''\) sowohl auf der Geraden \(\overline{B'C'}\) als auch auf der Geraden \(\overline{A'C'}\). Nun gilt:
+\[
+C'' \in \overline{A'C'} \cap \overline{B'C'} \supseteq \{C'\}.
+\]
+
+Daraus folgt:
+\[
+C'' = C'.
+\]
+
+Also gilt:
+\[
+\overline{A'C'} \cong \overline{AC}, \quad \overline{B'C'} \cong \overline{BC}, \quad \angle A'C'B' \cong_w \angle ACB.
+\]
+\end{proof}
+
+\begin{proposition}[SWW]
+In einer Hilbertebene gelten für zwei Dreiecke \(\triangle ABC\) und \(\triangle A'B'C'\):
+\[
+\overline{AB} \cong \overline{A'B'}, \quad \angle ABC \cong_w \angle A'B'C', \quad \angle ACB \cong_w \angle A'C'B'
+\]
+impliziert:
+\[
+\overline{BC} \cong \overline{B'C'}, \quad \overline{AC} \cong \overline{A'C'}, \quad \angle BAC \cong_w \angle B'A'C'.
+\]
+\end{proposition}
+
+\begin{proof}
+Nach (K1) existiert ein Punkt \(C'' \in \overline{A'C'}\), sodass:
+\[
+\overline{A'C''} \cong \overline{AC}.
+\]
+
+Mit (K6) erhalten wir:
+\[
+\angle A'C''B' \cong_w \angle ACB \cong_w \angle A'C'B'.
+\]
+
+Dies impliziert:
+\[
+\angle A'C''B' \cong_w \angle A'C'B'.
+\]
+
+Da \(\angle A'C''B'\) und \(\angle A'C'B'\) kongruent sind, folgt aus der Eindeutigkeit der Winkel, dass \(C'' = C'\). Wäre nämlich \(C'' \neq C'\), müsste gelten \(A' * C'' * C'\) oder \(A' * C' * C''\). Ohne Einschränkung der Allgemeinheit sei \(A' * C'' * C'\).
+
+Nach dem Außenwinkelsatz gilt dann:
+\[
+\angle B'C''A' > \angle B'C'A',
+\]
+was im Widerspruch dazu steht, dass \(\angle B'C''A' \cong_w \angle B'C'A'\). 
+
+Somit muss \(C'' = C'\) gelten. Daher sind die Dreiecke \(\triangle ABC\) und \(\triangle A'B'C'\) kongruent, und es folgt:
+\[
+\overline{BC} \cong \overline{B'C'}, \quad \overline{AC} \cong \overline{A'C'}, \quad \angle BAC \cong_w \angle B'A'C'.
+\]
+\end{proof}
+
+
+\textbf{Bemerkung:}
+Die folgenden Tripel sind keine Kongruenzsätze in der Hilbertebene:
+\begin{itemize}
+    \item \textbf{WSS:} Ein Dreieck ist im Allgemeinen nicht eindeutig bestimmt, wenn zwei Winkel und die ihnen folgende Seite gegeben sind.
+    \item \textbf{WWW:} Drei Winkel bestimmen in der Hilbertebene kein eindeutiges Dreieck. Allerdings ist WWW ein Kongruenzsatz in der \textbf{hyperbolischen Ebene}.
+\end{itemize}
+
+Es gilt jedoch der Kongruenzsatz \textbf{RWSS}, bei dem ein rechter Winkel, eine anliegende und die gegenüber liegende Seite gegeben sind.
+
+\begin{proposition}[Mittelpunkte, Senkrechte, Lot, Winkelhalbierende]\label{prop:mittelpunkt}
+In einer Hilbertebene gelten die folgenden Aussagen:
+\begin{enumerate}
+    \item Zu \(\overline{AB}\) existiert ein eindeutiger Punkt \(M \in \overline{AB}\) mit \(A * M * B\) und \(\overline{AM} \cong \overline{MB}\). Der Punkt \(M\) heißt \textbf{Mittelpunkt} von \(\overline{AB}\).
+    \item Sei \(C \in \overline{AB}\). Für jede Seite von \(\overline{AB}\) existiert ein eindeutiger Strahl \(\overrightarrow{\rm CD}\) mit \(\angle DCA\) ein rechter Winkel ist. Der Strahl \(\overrightarrow{\rm CD}\) heißt \textbf{Senkrechte} zu \(\overline{AB}\) in \(C\).
+    \item Sei \(\overline{AB}\) eine Gerade und \(C \notin \overline{AB}\). Es existiert ein eindeutiger Punkt \(D \in \overline{AB}\), sodass \(\overrightarrow{\rm CD}\) orthogonal zu \(\overline{AB}\) ist. Der Punkt \(D\) heißt \textbf{Lotfußpunkt} von \(C\) auf \(\overline{AB}\).
+    \item Sei \(\angle BAC\) ein Winkel. Es existiert ein eindeutiger Strahl \(\overrightarrow{\rm AE}\) im Inneren von \(\angle BAC\), sodass:
+    \[
+    \angle BAE \cong_w \angle EAC.
+    \]
+    Der Strahl \(\overrightarrow{\rm AE}\) heißt \textbf{Winkelhalbierende} von \(\angle BAC\).
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Parallelen und Hilbertebene]
+In einer Hilbertebene sei \(g\) eine Gerade und \(A \in \Pi\) ein Punkt. Dann existiert eine zu \(g\) parallele Gerade \(g'\) mit \(A \in g'\).
+\end{proposition}
+
+\begin{proof}
+Wir unterscheiden zwei Fälle:
+
+\textbf{Fall 1:} \(A \in g\)  
+In diesem Fall ist \(g' := g\). Damit ist die Behauptung erfüllt.
+
+\textbf{Fall 2:} \(A \notin g\)  
+Nach Proposition 1.42 existiert ein eindeutiger Punkt \(B \in g\), sodass der Strahl \(\overrightarrow{\rm BA}\) senkrecht auf \(g\) steht. Nach (S2) existiert ein Punkt \(C \in \overline{AB}\) mit \(B * A * C\).  
+
+Wieder mit Proposition 1.42 existiert ein Punkt \(D \in \Pi \setminus \overline{AB}\), sodass \(\overrightarrow{\rm AD}\) senkrecht auf \(\overline{AB}\) steht, das heißt, \(\angle BAD\) ist ein rechter Winkel.  
+
+Wir behaupten, dass \(AD \parallel g\). Angenommen, \(AD \not\parallel g\), dann existiert ein Punkt \(E \in AD \cap g\). Da \(AD \neq g\) (weil \(A \notin g\)), ist \(\triangle BAE\) ein Dreieck, in dem sowohl \(\angle BAE\) als auch \(\angle ABE\) rechte Winkel sind.  
+
+Nun ist einerseits der Nebenwinkel von \(\angle BAE\) ein rechter Winkel. Andererseits ist nach dem Außenwinkelsatz der Nebenwinkel von \(\angle BAE\) echt größer als \(\angle ABE\), der ebenfalls ein rechter Winkel ist.  
+
+Dies führt zu einem Widerspruch. Daher muss \(AD \parallel g\) gelten, und \(AD = g'\) ist die gesuchte Parallele zu \(g\) durch \(A\).
+\end{proof}
+
 
 \end{document}
