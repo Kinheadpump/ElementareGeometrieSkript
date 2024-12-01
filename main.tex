@@ -1,0 +1,848 @@
+\documentclass[a4paper,12pt]{article}
+
+% Pakete laden
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel} % Sprache Deutsch
+\usepackage{geometry} % Layout
+\usepackage{setspace} % Zeilenabstände
+\usepackage{amsmath,amssymb,amsthm, centernot} % Mathematische Umgebungen
+\usepackage{graphicx} % Bilder einfügen
+\usepackage{tikz} % Zeichnen von geometrischen Objekten
+\usepackage{hyperref} % Hyperlinks
+
+% Theoremstyle Break
+\newtheoremstyle{break}
+  {\topsep}{\topsep}%
+  {\itshape}{}%
+  {\bfseries}{}%
+  {\newline}{}%
+
+% Seitenlayout
+\geometry{a4paper, margin=2.5cm}
+\onehalfspacing
+\setcounter{section}{-1}
+\raggedright
+
+% Theorem-Umgebungen
+\theoremstyle{break}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}[definition]{Satz}
+\newtheorem{example}[definition]{Beispiel}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Korollar}
+
+
+% Makros
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\notimplies}{\centernot\implies}
+
+% Dokumentanfang
+\begin{document}
+
+% Titelseite
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries Elementare Geometrie \par}
+    \vspace{1.5cm}
+    
+    {\Large Basierend auf der Vorlesung von Dr. Nepechiy \par}
+    \vspace{2cm}
+\end{titlepage}
+
+% Inhaltsverzeichnis
+\newpage
+\tableofcontents
+\newpage
+
+\section{Einleitung}
+
+\subsection{Was ist Geometrie?}
+Geometrie kann aus verschiedenen Blickwinkeln betrachtet werden, unter anderem:
+
+\begin{itemize}
+    \item \textbf{Axiomatische Geometrie}
+    \item \textbf{Topologie}
+    \item \textbf{Differentialgeometrie}
+\end{itemize}
+
+In der \textbf{Differentialgeometrie} interessiert man sich für Größen wie Länge, Winkel, Krümmung und deren explizite Berechnung. 
+
+Im Gegensatz dazu betrachtet die \textbf{Topologie} nur das qualitative Verhalten geometrischer Objekte, unabhängig von genauen "Messungen".
+
+Ein klassisches Beispiel ist das \textbf{Königsberger Brückenproblem}:
+
+\begin{quote}
+    \textit{Gibt es einen Weg, bei dem jede der sieben Brücken genau einmal überquert wird? Gibt es einen Rundweg mit dieser Eigenschaft?}
+\end{quote}
+
+\subsection{Grundbegriffe der Graphentheorie}
+
+\begin{definition}[Pseudograph]
+Ein \textbf{Pseudograph} ist ein geordnetes Triple \( G = (E, K, r) \), wobei:
+\begin{itemize}
+    \item \( E \) eine Menge von Eckpunkten ist,
+    \item \( K \) eine Menge von Kanten ist,
+    \item \( r: K \to \{(e, e') \in E \times E : e, e' \in E\} \) eine Abbildung ist, die jeder Kante ihre Endpunkte zuordnet.
+\end{itemize}
+\end{definition}
+
+\begin{center}
+    \begin{tikzpicture}[scale=1.5, every loop/.style={}]
+        % Knoten
+        \node[circle, draw, fill=blue!20] (A) at (0, 0) {\(e_1\)};
+        \node[circle, draw, fill=blue!20] (B) at (2, 0) {\(e_2\)};
+        \node[circle, draw, fill=blue!20] (C) at (4, 0) {\(e_3\)};
+        
+        % Kanten
+        \draw[thick] (A) to[out=30, in=150] (B); % erste Kante zwischen e1 und e2
+        \draw[thick] (A) to[out=-30, in=210] (B); % zweite Kante zwischen e1 und e2
+        \draw[thick, loop above] (A) to[out=120, in=60, looseness=10] (A); % Schleife an e1
+        \draw[thick, loop above] (B) to[out=120, in=60, looseness=10] (B); % Schleife an e2
+    \end{tikzpicture}
+\end{center}
+
+\textbf{Bemerkung:} Das obige Beispiel illustriert die Eigenschaften eines Pseudographen, bei dem sowohl Schleifen (z. B. an \(e_1\)) als auch mehrere Kanten zwischen zwei Eckpunkten (z. B. zwischen \(e_1\) und \(e_2\)) zulässig sind. Der Knoten \( e_3 \) ist in diesem Beispiel nicht mit anderen Knoten verbunden, was auch in einem Pseudographen erlaubt ist.
+
+\begin{definition}[Eulerweg / Eulerkreis]
+Es sei \( G \) ein Pseudograph. Ein \textbf{Kantenzug} in \( G \) ist eine endliche Folge von Kanten \( (k_1, \dots, k_n) \). Ein Kantenzug heißt \textbf{Weg}, falls alle \( k_i \) paarweise verschieden sind. Ein Weg heißt \textbf{geschlossen}, falls \( k_1 = k_n \). Ein Weg heißt \textbf{Eulerweg}, wenn er jede Kante des Graphen genau einmal enthält. Ein geschlossener Eulerweg heißt \textbf{Eulerkreis}.
+\end{definition}
+
+\begin{definition}[Zusammenhängender Pseudograph]
+Ein \textbf{Pseudograph} heißt \textit{zusammenhängend}, wenn es zwischen je zwei Ecken einen Kantenzug gibt.
+\end{definition}
+
+\begin{definition}[Grad einer Ecke]
+Sei \( G \) ein Pseudograph und \( e \in E \) eine Ecke. Die \textbf{Ordnung} von \( e \) ist die Anzahl der von \( e \) ausgehenden Kanten.
+\end{definition}
+
+\begin{theorem}[Kriterium für Eulerkreis]
+In einem zusammenhängenden, endlichen Pseudographen ohne Schleifen existiert genau dann ein \textbf{Eulerkreis}, wenn alle Ecken gerade Ordnung haben.
+\end{theorem}
+
+\begin{proof}
+\textbf{Hinrichtung:} Sei \( (e_1, \dots, e_n, e_1) \) ein Eulerkreis. Jede Ecke, die der Weg erreicht, muss durch eine andere Kante verlassen werden (keine Schleifen). Folglich hat jede durchquerte Ecke gerade Ordnung. Da der Pseudograph nach Voraussetzung zusammenhängend ist, wird jede Ecke durchquert.
+
+\textbf{Rückrichtung:} Sei \( e_1 \) eine beliebige Ecke. Wir konstruieren einen Kantenzug, beginnend mit einer Kante \( k_1 \) in \( e_1 \), bis wir eine Ecke \( e_n \) erreichen, die keine unbenutzten Kanten mehr hat (und keine Kante doppelt vorkommt). Schematisch: 
+\[
+e_1 \xrightarrow{k_1} e_2 \xrightarrow{k_2} e_3 \dots \xrightarrow{k_{n-1}} e_n.
+\]
+Nach Voraussetzung gilt \( e_1 = e_n \), andernfalls hätte \( e_n \) eine ungerade Ordnung. Falls \( (k_1, \dots, k_n) \) ein Eulerweg ist, sind wir fertig. Ansonsten betrachten wir die Menge aller geschlossenen Wege wie den oben, mit beliebigen Startpunkten. Wir wählen einen solchen Weg mit maximaler Kantenzahl (möglich wegen Endlichkeit). 
+
+Wir behaupten, ein solcher Weg ist ein Eulerweg. Angenommen, dies sei nicht der Fall, dann gibt es einen weiteren geschlossenen Weg \( W_2 \), sodass \( W_1 \) und \( W_2 \) mindestens einen Punkt gemein haben (zusammenhängend). Indem wir den zusammengesetzten Weg betrachten (Laufe \( W_1 \) bis zum gemeinsamen Punkt, dann \( W_2 \), dann den Rest von \( W_1 \)), erhalten wir einen geschlossenen Weg wie oben mit größerer Kantenzahl, was einen Widerspruch ergibt.
+\end{proof}
+
+\begin{theorem}[Kriterium für Eulerwege]
+In einem zusammenhängenden, endlichen Pseudographen ohne Schleifen existiert genau dann ein \textbf{Eulerweg}, der kein Eulerkreis ist, wenn genau zwei Ecken existieren, die ungerade Ordnung haben.
+\end{theorem}
+
+\begin{proof}
+\textbf{Hinrichtung:} Sei \( (e_1, \dots, e_n) \) ein Eulerweg, der kein Eulerkreis ist. Das bedeutet, dass \( e_1 \neq e_n \). Da der Eulerweg jede Kante genau einmal durchläuft, haben die Ecken \( e_1 \) und \( e_n \) ungerade Ordnung, da sie jeweils nur durch eine Kante betreten werden, aber durch keine weitere Kante verlassen werden. Alle anderen Ecken müssen gerade Ordnung haben, da sie jeweils sowohl betreten als auch verlassen werden.
+
+\textbf{Rückrichtung:} Sei \( e_1 \) und \( e_n \) die beiden Ecken mit ungerader Ordnung. Wir führen nun eine zusätzliche Kante \( k' \) zwischen \( e_1 \) und \( e_n \) ein. Der neue Graph erfüllt nun die Voraussetzungen des Satzes 0.5, was bedeutet, dass ein Eulerkreis existiert. Bezeichnen wir diesen Eulerkreis als \( (k_1, k_2, \dots, k_{i-1}, k_i, k_{i+1}, \dots, k_n) \), wobei ohne Einschränkung \( k_i = k' \) gilt. Durch Entfernen der Kante \( k' \) entsteht ein Eulerweg, der als \( (k_{i+1}, \dots, k_n, k_1, \dots, k_{i-1}) \) beschrieben werden kann. Dieser Weg ist der gesuchte Eulerweg.
+\end{proof}
+
+Das \textbf{Königsberger Brückenproblem} kann als Graph aufgefasst werden. In diesem Graphen entsprechen die Ecken den Landmassen, und die Kanten stellen die Brücken dar. Nach Satz 0.5 existiert in diesem Graphen kein \textbf{Eulerkreis}. Nach Satz 0.6 existiert auch kein \textbf{Eulerweg}, da es mehr als zwei Ecken mit ungerader Ordnung gibt. Somit lässt sich das Königsberger Brückenproblem nicht durch einen Eulerweg oder -kreis lösen.
+\subsection{Axiomatische Geometrie}
+
+Es gibt mehrere Ansätze, die euklidische Ebene zu definieren und euklidische Geometrie zu betreiben. Eine Möglichkeit ist, ein explizites Modell anzugeben: Ein Punkt in der euklidischen Ebene ist ein Paar reeller Zahlen \( (x, y) \), und der Abstand zwischen zwei Punkten \( (x_1, y_1) \) und \( (x_2, y_2) \) ist gegeben durch die Formel
+\[
+d\left( (x_1, y_1), (x_2, y_2) \right) = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}.
+\]
+Mit dieser Definition haben wir die euklidische Ebene unter Verwendung von \( \R \) (dem Raum der reellen Zahlen) definiert.
+
+Der Hauptvorteil dieses Zugangs ist seine Kürze, jedoch ist er wenig intuitiv. Es ist weder klar, warum der Abstand auf diese Art und Weise definiert wird, noch wie man weitere offensichtliche Fakten daraus ablesen kann. 
+
+Ein alternativer Zugang besteht darin, offensichtliche Fakten als Axiome vorzugeben und die Menge der in Frage kommenden Modelle zu untersuchen. Ein Vorteil dieses Ansatzes liegt in seiner Anpassungsfähigkeit – durch das Streichen oder Hinzufügen eines Axioms kann man verschiedene geometrische Systeme erzeugen. 
+
+Der erste, der diesen Ansatz systematisch gewählt hat, war \textbf{Euklid von Alexandria} um etwa 300 vor Christus in seinem Werk \textit{Elemente}. Dieses Werk umfasst 13 Bücher und ist das einflussreichste Werk der (mathematischen) Geschichte. Aus heutiger Sicht genügen die \textit{Elemente} jedoch nicht der aktuellen mathematischen Strenge. So verwendet Euklid beispielsweise die Existenz von Schnittpunkten zweier \textbf{Kreise}, die einen gemeinsamen Punkt im Inneren haben. Diese Tatsache ist jedoch weder ein Axiom noch eine aus ihnen abgeleitete Aussage. 
+
+Seitdem wurden zahlreiche weitere Axiomensysteme vorgeschlagen. Das populärste stammt von \textbf{David Hilbert} (1899). Es ist zugleich das erste System, das den heutigen mathematischen Standards an Formalität und Strenge genügt. 
+
+Weitere Axiomensysteme sind von unabhängigem Interesse:
+\begin{itemize}
+    \item \textbf{A. D. Alexandrov (1994):} Einfach, elementar und praxisnah.
+    \item \textbf{Friedrich Bachmann (1959):} Basierend auf Symmetrien.
+    \item \textbf{Alfred Tarski (1959):} Minimalistisches System ohne Rückgriff auf die Mengenlehre.
+    \item \textbf{George D. Birkhoff (1932):} Basierend auf metrischen Konzepten.
+\end{itemize}
+
+\section{Hilbert's Axiome}
+
+\subsection{Inzidenzaxiome}
+
+\begin{definition}[Inzidenzgeometrie]
+Es seien Mengen $\Pi$ und $\Gamma \subseteq \mathcal{P}(\Pi)$ gegeben, deren Elemente wir jeweils als \textit{Punkte} und \textit{Geraden} bezeichnen wollen. Das Paar $(\Pi, \Gamma)$ heißt \textit{Inzidenzgeometrie}, falls es die folgenden Axiome erfüllt:
+\begin{itemize}
+    \item[\textbf{(I1)}] Für alle $A, B \in \Pi$ mit $A \neq B$ existiert genau eine Gerade $g \in \Gamma$, sodass $A, B \in g$. \\
+    Zwei verschiedene Punkte liegen immer auf genau einer Geraden.
+    \item[\textbf{(I2)}] Für alle $g \in \Gamma$ gilt $|g| \geq 2$. \\
+    Jede Gerade enthält mindestens zwei Punkte.
+    \item[\textbf{(I3)}] Es existieren $A, B, C \in \Pi$, die paarweise verschieden sind, sodass für alle $g \in \Gamma$ gilt: $\{A, B, C\} \nsubseteq g$. \\
+    Es existieren drei paarweise verschiedene Punkte, die nicht alle auf einer Geraden liegen.
+\end{itemize}
+\end{definition}
+Für $A \in \Pi$ und $g \in \Gamma$ mit $A \in g$ sagen wir: \textit{Der Punkt $A$ liegt auf der Geraden $g$;} oder äquivalent: \textit{Die Gerade $g$ geht durch den Punkt $A$.}
+
+\begin{proposition}[Eindeutigkeit des Geradenschnittpunkts]\label{prop:eindeutig_schnittpunkt}
+Es sei $(\Pi, \Gamma)$ eine Inzidenzgeometrie und $g_1, g_2 \in \Gamma$ mit $g_1 \neq g_2$. Dann gilt: 
+\[
+|g_1 \cap g_2| \leq 1.
+\]
+\end{proposition}
+
+\begin{proof}
+Angenommen, $|g_1 \cap g_2| > 1$. Sei $A, B \in g_1 \cap g_2$ mit $A \neq B$. Dann sind sowohl $g_1$ als auch $g_2$ Geraden durch die Punkte $A$ und $B$. Nach der Eindeutigkeitsaussage in (I1) gilt jedoch $g_1 = g_2$, ein Widerspruch zur Voraussetzung $g_1 \neq g_2$. 
+
+\[
+\Rightarrow |g_1 \cap g_2| \leq 1.
+\]
+\end{proof}
+
+\begin{example}[Cartesische Ebene]\label{example:cart_ebene}
+Setze \( \Pi = \R^2 \) und 
+\[
+\Gamma = \left\{ \{(x, y) \in \R^2 : ax + by + c = 0 \} \subseteq \R^2 : a, b, c \in \R \text{ mit } (a, b) \neq (0, 0) \right\}.
+\]
+Dies definiert eine Inzidenzgeometrie:
+
+\begin{itemize}
+    \item Für (I1) betrachte \( (a_1, a_2), (b_1, b_2) \in \R^2 \). Falls \( a_1 \neq b_1 \), so liegen sie auf der Geraden 
+    \[
+    y - a_2 = \frac{b_2 - a_2}{b_1 - a_1}(x - a_1),
+    \]
+    andernfalls auf der Geraden \( x = a_1 \).
+
+    \item Für (I2) nehme o.B.d.A. \( b \neq 0 \) an und löse die Gleichung \( ax + by + c = 0 \) für \( x_1 = 1 \) und \( x_2 = 0 \). Wir erhalten zwei verschiedene Punkte auf der Geraden.
+
+    \item Für (I3) betrachte die Punkte \( (0, 0) \), \( (0, 1) \), \( (1, 0) \). Es gibt keine lineare Gleichung, die alle Punkte als Lösung enthält (sonst wäre \( a = b = c = 0 \)).
+\end{itemize}
+\end{example}
+
+\begin{example}[Endliche Inzidenzgeometrie]\label{example:endl_inzidenz}
+Setze \( \Pi = \{ A, B, C \} \) und 
+\(\Gamma = \{ X \subseteq \Pi : |X| = 2 \}.\)\\
+Dies definiert eine endliche Inzidenzgeometrie.
+
+Schematisch dargestellt:
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+    % Punkte
+    \coordinate (A) at (0, 1.5);
+    \coordinate (B) at (-1.5, 0);
+    \coordinate (C) at (1.5, 0);
+
+    % Punkte beschriften
+    \fill (A) circle (2pt) node[above] {\(A\)};
+    \fill (B) circle (2pt) node[left] {\(B\)};
+    \fill (C) circle (2pt) node[right] {\(C\)};
+
+    % Geraden zeichnen
+    \draw[thick] (A) -- (B);
+    \draw[thick] (B) -- (C);
+    \draw[thick] (A) -- (C);
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+\begin{definition}[Isomorphismen von Inzidenzgeometrien]
+Seien $(\Pi_1, \Gamma_1)$ und $(\Pi_2, \Gamma_2)$ Inzidenzgeometrien. Eine Abbildung $f: \Pi_1 \to \Pi_2$ heißt Isomorphismus, falls $f$ bijektiv ist und für $g \in \Gamma_1$ gilt:
+\[
+g \in \Gamma_1 \quad \Leftrightarrow \quad f(g) \in \Gamma_2.
+\]
+Im Fall $(\Pi_1, \Gamma_1) = (\Pi_2, \Gamma_2)$ spricht man von einem Automorphismus. \\
+\(\Rightarrow\) In Beispiel~\ref{example:endl_inzidenz} gibt es 6 Automorphismen.
+\end{definition}
+
+\begin{definition}[Parallelismus und Parallelenaxiom]
+Zwei Geraden $g_1, g_2 \in \Gamma$ einer Inzidenzgeometrie $(\Pi, \Gamma)$ mit $g_1 \neq g_2$ heißen parallel, falls $g_1 \cap g_2 = \emptyset$, und schreiben $g_1\parallel g_2$. Wir definieren, dass jede Gerade $g$ immer parallel zu sich selbst ist. Eine Inzidenzgeometrie $(\Pi, \Gamma)$ erfüllt das Parallelenaxiom, falls:
+\[
+(P) \quad \forall A \in \Pi \, \forall g \in \Gamma: \left| \{ g' \in \Gamma : A \in g', g' \parallel g \} \right| \leq 1.
+\]
+Für jeden Punkt $A \in \Pi$ und jede Gerade $g$ existiert höchstens eine Gerade $g'$, die $A$ enthält und parallel zu $g$ ist.
+\end{definition}
+\textbf{Bemerkung:} Beispiel~\ref{example:cart_ebene} und~\ref{example:endl_inzidenz} erfüllen das Parallelenaxiom.
+
+\begin{example}[Endliche Inzidenzgeometrie ohne (P)]\label{example:inzidenz_ohne_p}
+Es sei $\Pi = \{A,B,C,D,E\}$, $\Gamma = \{ X \in \mathcal{P}(\Pi) : |X| = 2 \}$ \\ $\Rightarrow$ $(\Pi, \Gamma)$ ist eine Inzidenzgeometrie, die das Parallelenaxiom $(P)$ nicht erfüllt. \\Schematisch dargestellt:
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+    % Punkte
+    \coordinate (A) at (0, 1.2);
+    \coordinate (B) at (-1.5, 0);
+    \coordinate (C) at (1.5, 0);
+    \coordinate (E) at (1, -2);
+    \coordinate (D) at (-1, -2);
+
+    % Punkte beschriften
+    \fill (A) circle (2pt) node[above] {\(A\)};
+    \fill (B) circle (2pt) node[left] {\(B\)};
+    \fill (C) circle (2pt) node[right] {\(C\)};
+    \fill (D) circle (2pt) node[below left] {\(D\)};
+    \fill (E) circle (2pt) node[below right] {\(E\)};
+
+    % Geraden zeichnen (paarweise Verbindungen)
+    \draw[thick] (A) -- (B);
+    \draw[thick] (A) -- (C);
+    \draw[thick] (A) -- (D);
+    \draw[thick] (A) -- (E);
+    \draw[thick] (B) -- (C);
+    \draw[thick] (B) -- (D);
+    \draw[thick] (B) -- (E);
+    \draw[thick] (C) -- (D);
+    \draw[thick] (C) -- (E);
+    \draw[thick] (D) -- (E);
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+Das Axiomsystem sollte im Idealfall minimal sein, das heißt keine der Axiome sollte aus den übrigen folgen.
+
+\begin{proposition}[Inzidenzaxiome + (P) sind unabhängig]
+Die Axiome \((I1)\), \((I2)\), \((I3)\), \((P)\) sind unabhängig.
+\end{proposition}
+
+\begin{proof}
+Wir konstruieren für jedes Tripel der vier Axiome ein Paar \((\Pi, \Gamma)\), welches das letzte verbliebene nicht erfüllt.
+
+\begin{itemize}
+    \item \((I1) + (I2) + (I3) \notimplies (P)\): Siehe Beispiel~\ref{example:inzidenz_ohne_p}.
+    \item \((I1) + (I2) + (P) \notimplies (I3)\): Sei \(\Pi = \{A, B\}\) und \(\Gamma = \{\{A, B\}\}\).
+    \item \((I2) + (I3) + (P) \notimplies (I1)\): Sei \(\Pi = \{A, B, C\}\) und \(\Gamma = \emptyset\).
+    \item \((I1) + (I3) + (P) \notimplies (I2)\): Sei \(\Pi = \{A, B, C\}\) und \(\Gamma = \{\{A, B\}, \{A, C\}, \{B, C\}, \{A\}\}\).
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+    % Punkte
+    \coordinate (A) at (0, 1.5);
+    \coordinate (B) at (1.5, 1.5);
+    \coordinate (C) at (0, 0);
+
+    % Punkte beschriften
+    \fill (A) circle (2pt) node[below left] {\(A\)};
+    \fill (B) circle (2pt) node[right] {\(B\)};
+    \fill (C) circle (2pt) node[below] {\(C\)};
+
+    % Geraden zeichnen
+    \draw[thick] (A) -- (B);
+    \draw[thick] (B) -- (C);
+    \draw[thick] (A) -- (C);
+    \draw[thick, loop above] (A) to[loop above] (A);
+\end{tikzpicture}
+\end{center}
+\end{proof}
+
+\subsection{Streckenordnungsaxiome}
+
+Wir wollen erklären, was es bedeutet, für einen Punkt zwischen zwei anderen zu liegen. Dies motiviert die nachfolgenden Zwischenaxiome:
+
+\begin{definition}[Streckenordnungsaxiome]\label{def:strecken_axiome}
+Es sei \((\Pi, \Gamma)\) eine Inzidenzgeometrie und \(Z \subseteq \{ (A, B, C) \in \Pi^3 : | \{A, B, C \} | = 3 \}\). Wir schreiben \(A * B * C\), falls \((A, B, C) \in Z\) und sagen, dass \(B\) zwischen \(A\) und \(C\) liegt. Das Tripel \((\Pi, \Gamma, Z)\) erfüllt die Streckenordnungsaxiome, falls:
+
+\begin{itemize}
+    \item[\textbf{(S1)}] Falls \((A, B, C) \in Z\):
+    \begin{itemize}
+        \item 1) Es existiert \(g \in \Gamma\) mit \(A, B, C \in g\).
+        \item 2) \((C, B, A) \in Z\) (oder auch \(C * B * A\)).
+    \end{itemize}
+    
+    \item[\textbf{(S2)}] Für alle \(A, B \in \Pi\), \(A \neq B\), existiert \(C \in \Pi\) mit \(A * B * C\).
+    
+    \item[\textbf{(S3)}] Für drei verschiedene Punkte auf einer Geraden gilt genau eine der folgenden drei Möglichkeiten:
+    \[
+    A * B * C, \quad B * C * A, \quad C * A * B.
+    \]
+    
+    \item[\textbf{(S4)}] (Pasch, 1882) \(A, B, C\) nicht kollinear (in keiner Linie enthalten) und \(g \in \Gamma\) mit \(A, B, C \notin g\) und \(D \in g\) sodass \(A * D * B\), impliziert:
+    \begin{itemize}
+        \item Entweder es existiert \(E_1 \in g\) mit \(A * E_1 * C\), oder
+        \item Es existiert \(E_2 \in g\) mit \(B * E_2 * C\).
+    \end{itemize}
+\end{itemize}
+\textbf{Bemerkung:} Wir betrachten \(Z\) als die Menge der Tripel von Punkten, bei denen die Beziehung der \glqq Zwischenliegenschaft\grqq{} zwischen den Punkten definiert ist.
+\end{definition}
+
+\begin{definition}[Segmente und Dreiecke]
+Sei \((\Pi, \Gamma, Z)\) wie in Definition~\ref{def:strecken_axiome}. Seien \(A, B \in \Pi\) mit \(A \neq B\), dann setzen wir
+\[
+\overline{AB} := \{A, B\} \cup \{C \in \Pi : A * C * B\}.
+\]
+Sind \(A, B, C \in \Pi\) nicht kollinear, so definieren wir das Dreieck mit Eckpunkten \(A, B, C\) durch
+\[
+\triangle ABC := \overline{AB} \cup \overline{BC} \cup \overline{CA}.
+\]
+Wir sagen, \(\overline{AB}, \overline{BC}, \overline{CA}\) seien die Seiten des Dreiecks.
+\end{definition}
+
+\textbf{Bemerkung:} Die Endpunkte \(A, B\) eines Segments \(\overline{AB}\) sind eindeutig durch das Segment bestimmt. Ebenso sind die Eckpunkte \(A, B, C\) und die Seiten \(\overline{AB}, \overline{BC}, \overline{CA}\) eines \(\triangle ABC\) eindeutig durch das Dreieck bestimmt. 
+
+Mit dieser Terminologie kann Paschs Axiom einfacher formuliert werden: Eine Gerade \(G\), welche die Punkte \(A, B, C\) nicht enthält, schneidet \(\triangle ABC\) entweder in keiner oder in zwei Seiten.
+
+\begin{proposition}[Trennung der Ebene]\label{prop:trennung_der_ebene}
+Sei \((\Pi, \Gamma, Z)\) wie in Definition~\ref{def:strecken_axiome}, und sei \(g\) eine Gerade. Dann gilt:
+\[
+\Pi \setminus g = M_1 \sqcup M_2
+\]
+wobei \(M_1\) und \(M_2\) beide nicht leer sind, sodass die folgenden Bedingungen erfüllt sind:
+\begin{enumerate}
+    \item Zwei Punkte \(A, B \in \Pi \setminus g\) gehören zur selben Seite/Menge (also \(M_1\) oder \(M_2\)) genau dann, wenn \(\overline{AB} \cap g = \emptyset\).
+    \item Zwei Punkte \(A, B \in \Pi \setminus g\) gehören zu verschiedenen Seiten/Mengen genau dann, wenn \(\overline{AB} \cap g \neq \emptyset\).
+\end{enumerate}
+Wir bezeichnen \(M_1\) und \(M_2\) als die verschiedenen Seiten von \(g\) und sagen \glqq\(A\) und \(B\) liegen auf der gleichen Seite\grqq{} oder \glqq\(A\) und \(B\) liegen auf gegenüberliegenden Seiten\grqq{}.
+\begin{proof}
+    Folgt aus den nachfolgenden Lemmata~\ref{lemma:äquivalenzrelation} und~\ref{lemma:zwei_äquivalenz}
+\end{proof}
+\end{proposition}
+
+\begin{lemma}[Äquivalenzrelation]\label{lemma:äquivalenzrelation}
+Für \(A, B \in \Pi \setminus g\) wie in Proposition~\ref{prop:trennung_der_ebene} definiere:
+\[
+A \sim B \stackrel{\text{Def}}{\iff} \text{Entweder } A = B \text{ oder } \overline{AB} \cap g = \emptyset.
+\]
+Durch \(\sim\) wird eine Äquivalenzrelation definiert.
+
+\begin{proof} Nach Definition gilt \(A \sim A\) und \(A \sim B \implies B \sim A\) (wegen \(\overline{AB} = \overline{BA}\)).
+
+Nichttrivial ist die Transitivität:
+
+\begin{itemize}
+    \item \textbf{Fall 1:} \(A, B, C\) sind nicht kollinear.
+    \begin{itemize}
+        \item \(A \sim B \implies \overline{AB} \cap g = \emptyset\) und \(B \sim C \implies \overline{BC} \cap g = \emptyset\).
+        \item Nach Paschs Axiom folgt \(\overline{AC} \cap g = \emptyset \implies A \sim C\).
+    \end{itemize}
+    
+    \item \textbf{Fall 2:} \(A, B, C\) liegen auf einer Geraden \(h\). Da \(A, B, C \notin g\) nach Voraussetzung, folgt \(g \neq h\).
+    \begin{itemize}
+        \item Nach Proposition~\ref{prop:eindeutig_schnittpunkt} gilt \(\lvert g \cap h \rvert \leq 1\).
+        \item Da nach (I2) jede Gerade mindestens zwei Punkte besitzt, ist \(g \setminus h \neq \emptyset\).
+        \item Sei \(D \in g \setminus h\). Nach (S2) existiert ein \(E\) mit \(D * A * E\).
+        \item Nach (S1) folgt, dass \(D, A, E\) auf einer Geraden \(i\) liegen, was bedeutet, dass \(E \notin g\) (sonst wäre auch \(A \in g\) wegen (I1)), was \(i \neq g\) ergibt.
+        \item Nach Proposition~\ref{prop:eindeutig_schnittpunkt} gilt \(i \cap g = \{D\}\).
+        \item Nach (S3) folgt \(\overline{AE} \cap g = \emptyset\), da sonst ein Punkt in \(i \cap g\) zwischen \(A\) und \(E\) liegen würde, was wegen (S3) nicht \(D\) ist. Damit hätten \(i\) und \(g\) mehrere Schnittpunkte, was zu einem Widerspruch führt.
+    \end{itemize}
+    \item Folglich gilt \(A \sim E\). Nach Konstruktion ist \(E \notin h\), sonst wäre \(D \in h\), was im Widerspruch zur Wahl von \(D\) steht.
+    \begin{itemize}
+        \item Daraus folgt, dass \(A, B, E\) nicht kollinear sind.
+        \item Daher gilt \((A \sim E, A \sim B \implies B \sim E)\).
+    \end{itemize}
+    \item Analog gilt auch \(B, C, E\) sind nicht kollinear, und daher gilt \((B \sim E, B \sim C \implies C \sim E)\).
+    \item Schließlich gilt auch \(A, C, E\) sind nicht kollinear, und daher gilt \((A \sim E, C \sim E \implies A \sim C)\).
+\end{itemize}
+Daher gilt \((A \sim B, B \sim C \implies A \sim C)\) und die Transitivität ist gezeigt.
+\end{proof}
+\begin{center}
+    \begin{tikzpicture}[scale=1.5]
+    % Punkte definieren
+    \coordinate (A) at (1.02, 0.816);
+    \coordinate (B) at (1.76, 1.41);
+    \coordinate (C) at (2.5, 2);
+    \coordinate (D) at (2, 0);
+    \coordinate (E) at (-1, 2.5);
+    \coordinate (F) at (0,0);
+
+    % Linien zeichnen
+    \draw[thick] (-2, 0) -- (3, 0) node[right] {$g$}; % Gerade g
+    \draw[thick] (D) -- (E) node[below left] {$i$}; % Gerade i
+    \draw[thick] (F) -- (C) node[above left] {$h$}; % Gerade h
+
+    % Punkte beschriften
+    \fill (A) circle (2pt) node[below] {$A$};
+    \fill (B) circle (2pt) node[below right] {$B$};
+    \fill (C) circle (2pt) node[below right] {$C$};
+    \fill (D) circle (2pt) node[below right] {$D$};
+    \fill (E) circle (2pt) node[above right] {$E$};
+    \end{tikzpicture}
+\end{center}
+\end{lemma}
+
+\begin{lemma}[$\sim$ hat zwei Äquivalenzklassen]\label{lemma:zwei_äquivalenz}
+In der Situation von Lemma~\ref{lemma:äquivalenzrelation} gilt: Die Äquivalenzrelation $\sim$ besitzt genau zwei Äquivalenzklassen.
+
+\begin{proof} 
+Nach (I3) existiert ein Punkt $A \notin g$, sodass mindestens eine Äquivalenzklasse existiert. Sei nun $D \in g$ beliebig (existiert nach (I2)), und es folgt nach (S2), dass es einen Punkt $C$ gibt, sodass $A * D * C$, was bedeutet, dass $\overline{AC} \cap g \neq \emptyset$. Daraus folgt $A \not\sim C$, was mindestens zwei Äquivalenzklassen impliziert.
+
+Nun müssen wir zeigen, dass es höchstens zwei Äquivalenzklassen gibt. Dazu wählen wir $A, B, C$ mit $A \not\sim C$ und $B \not\sim C$ und zeigen $A \sim B$, wodurch die Behauptung folgt.
+
+\textbf{Fall 1:} $A, B, C$ sind nicht kollinear.  
+Betrachte das Dreieck $\triangle ABC$:  
+\begin{itemize}
+  \item Da $A \not\sim C$, gilt $\overline{AC} \cap g \neq \emptyset$.
+  \item Ebenso gilt $B \not\sim C$, daher ist $\overline{BC} \cap g \neq \emptyset$.
+  \item Nach Paschs Axiom folgt, dass $\overline{AB} \cap g = \emptyset$, also $A \sim B$.
+\end{itemize}
+
+\textbf{Fall 2:} $A, B, C$ liegen auf der gleichen Geraden $h$.  
+Wie im Beweis von Lemma~\ref{lemma:äquivalenzrelation}, Fall 2, wählen wir $D \in g \setminus h$.  
+\begin{itemize}
+  \item Nach (S2) existiert ein Punkt $E$, sodass $D * A * E$, was bedeutet, dass $A \sim E$ (wie im vorherigen Lemma).
+  \item Da $A \not\sim C$ (Voraussetzung), folgt $C \not\sim E$ (sonst $A \sim E$, $E \sim C$ würde $A \sim C$ implizieren).
+  \item Nun, da $B, C, E$ nicht kollinear sind und wir wissen, dass $E \not\sim C$ und $B \not\sim C$, folgt $B \sim E$.
+  \item Wie in Lemma~\ref{lemma:äquivalenzrelation} gilt $A \sim E$ und somit $A \sim B$.
+\end{itemize}
+\end{proof}
+\end{lemma}
+
+\begin{corollary}[Trennung der Geraden]
+Es sei $(\Pi, \Gamma, Z)$ wie in Definition~\ref{def:strecken_axiome}, $A \in g \in \Gamma$.  
+Es existieren $M_1', M_2' \subseteq g \setminus \{A\}$, beide nicht leer, sodass  
+$g \setminus \{A\} = M_1' \sqcup M_2'$ (die zwei Seiten von $g$ bezüglich $A$) und Folgendes gilt:
+\begin{enumerate}
+    \item $B, C \in M_1' \iff A \notin \overline{BC}$ oder $B, C \in M_2'$ (d.\,h. $B$ und $C$ liegen auf derselben Seite von $A$).
+    \item $B \in M_1', D \in M_2' \iff A \in \overline{BD}$ (d.\,h. $B$ und $D$ liegen auf verschiedenen Seiten von $A$).
+\end{enumerate}
+
+\begin{proof}
+Nach (I3) existiert ein Punkt $E \notin g$. Betrachte nun eine Gerade $h$ durch $A$ und $E$.  
+Nach Proposition~\ref{prop:trennung_der_ebene} gilt:
+\[
+\Pi \setminus h = M_1 \sqcup M_2.
+\]
+Setze $M_1' := M_1 \cap g$ und $M_2' := M_2 \cap g$.  
+
+\begin{itemize}
+    \item Die Zerlegung $M_1' \cup M_2'$ ist disjunkt.
+    \item Sind $B, C \in M_1'$, so gilt:
+    \[
+    \overline{BC} \cap h = \emptyset \iff A \notin \overline{BC}.
+    \]
+    Ebenso gilt: Sind $B \in M_1', D \in M_2'$, so folgt:
+    \[
+    \overline{BD} \cap h \neq \emptyset.
+    \]
+\end{itemize}
+
+Nach Proposition~\ref{prop:trennung_der_ebene} ist
+\[
+\emptyset \neq \overline{BD} \cap h \subseteq g \cap h = \{A\} \iff \overline{BD} \cap h = \{A\}.
+\]
+
+Zu zeigen bleibt, dass $M_1'$ und $M_2'$ nicht leer sind.  
+Aus (I2) folgt, dass ein Punkt $D \in g \setminus \{A\}$ existiert. Nach (S2) existiert ein Punkt $D \in \Pi \setminus \{A, B\}$ mit $B * A * D$, was impliziert, dass $D \in g$ und $A \in \overline{BD}$.  
+Nach Proposition~\ref{prop:trennung_der_ebene} folgt dann $B \in M_1'$ und $D \in M_2'$.  
+\end{proof}
+\end{corollary}
+
+\begin{definition}[Winkel]
+Sei $(\Pi, \Gamma, Z)$ wie in Definition~\ref{def:strecken_axiome}. Für $A, B \in \Pi$ mit $A \neq B$ ist der \textbf{Strahl} ($\overrightarrow{\rm AB}$) von $A$ in Richtung $B$ die Menge
+\begin{equation*}
+\begin{split}
+\overrightarrow{\rm AB} := \{A\} \cup \{p \in \Pi : p \text{ liegt auf derselben Seite wie } B\\ \text{ bezüglich der Geraden, die durch } A \text{ und } B \text{ geht}\}.
+\end{split}
+\end{equation*}
+Der Punkt $A$ heißt hierbei \textbf{Ursprung} des Strahls.  
+
+Ein \textbf{Winkel} $\angle BAC$ ist die Vereinigung zweier nicht auf derselben Geraden liegender Strahlen $\overrightarrow{\rm AB}$, $\overrightarrow{\rm AC}$ mit gleichem Ursprung.  
+
+Das \textbf{Innere} eines Winkels $\angle BAC$ ist definiert als die Menge
+\begin{equation*}
+\begin{split}
+\{p \in \Pi : p \text{ liegt auf derselben Seite der Geraden durch } A \text{ und } B \text{ wie } C \\ \text{ und auf derselben Seite der Geraden durch } A \text{ und } C \text{ wie } B\}.
+\end{split}
+\end{equation*}
+
+Das \textbf{Innere} eines Dreiecks $\triangle ABC$ ist der Schnitt der Inneren der Winkel $\angle ABC$, $\angle BCA$, $\angle CAB$.
+\end{definition}
+
+\begin{proposition}[Crossbar Satz]
+Sei $(\Pi, \Gamma, Z)$ wie in Definition~\ref{def:strecken_axiome}. Sei $\angle BAC$ ein Winkel, $D$ ein Punkt im Inneren von $\angle BAC$. 
+
+Dann gilt: $\overline{AD}$ schneidet $\overline{BC}$.
+\end{proposition}
+
+\begin{proof}
+\end{proof}
+
+\subsection{Kongruenzaxiome für Strecken}
+
+\begin{definition}[Kongruenzaxiome für Strecken]\label{def:kongruenzaxiome_strecken}
+Eine Geometrie \((\Pi, \Gamma, Z)\) wie in Definition~\ref{def:strecken_axiome} erfüllt die \emph{Kongruenzaxiome für Strecken}, falls für alle \(\overline{AB} \subseteq \Pi\) mit \(A, B \in \Pi\) und \(A \neq B\) die Relation \(\cong\) folgende Axiome erfüllt:
+\begin{itemize}
+    \item[\textbf{(K1)}] Sei \(\overline{AB}\) eine Strecke und \(S\) ein Strahl mit Ursprung \(C \in \Pi\). Dann existiert genau ein \(D \in S\), sodass \(\overline{AB} \cong \overline{CD}\).
+    \item[\textbf{(K2)}] Es gilt:
+    \begin{itemize}
+        \item \(\overline{AB} \cong \overline{CD}\) und \(\overline{AB} \cong \overline{EF} \implies \overline{CD} \cong \overline{EF}\),
+        \item jedes Segment ist zu sich selbst kongruent.
+    \end{itemize}
+    \item[\textbf{(K3)}] Sind \(A, B, C\) paarweise verschieden mit \(A * B * C\) und \(D, E, F\) mit \(D * E * F\), so folgt:
+    \[
+    \overline{AB} \cong \overline{DE} \quad \text{und} \quad \overline{BC} \cong \overline{EF} \implies \overline{AC} \cong \overline{DF}.
+    \]
+\end{itemize}
+\end{definition}
+
+\begin{lemma}[Kongruenz ist eine Äquivalenzrelation]\label{lemma:kong_ist_äqu}
+Sei \((\Pi, \Gamma, Z)\) wie in Definition~\ref{def:kongruenzaxiome_strecken}. Dann ist \(\cong\) auf der Menge 
+\[
+\{\overline{AB} \subseteq \Pi : A \neq B, \, A, B \in \Pi\}
+\]
+eine Äquivalenzrelation.
+\end{lemma}
+
+\begin{proof}
+Die Reflexivität folgt direkt aus \textbf{(K2)}, da jedes Segment zu sich selbst kongruent ist.
+
+Die Symmetrie ergibt sich ebenfalls aus \textbf{(K2)}: Aus \(\overline{AB} \cong \overline{CD}\) und \(\overline{AB} \cong \overline{AB}\) folgt, dass \(\overline{CD} \cong \overline{AB}\).
+
+Die Transitivität folgt ebenfalls aus \textbf{(K2)}: Ist \(\overline{AB} \cong \overline{CD}\), so gilt auch \(\overline{CD} \cong \overline{AB}\). Kombiniert mit \(\overline{CD} \cong \overline{EF}\) folgt, dass \(\overline{AB} \cong \overline{EF}\).
+\end{proof}
+
+\begin{definition}[Addition von Strecken]
+Sei \((\Pi, \Gamma, Z, \cong)\) wie in Definition~\ref{def:kongruenzaxiome_strecken}, und seien \(A, B, C, D \in \Pi\) mit \(A \neq B\) und \(C \neq D\). 
+
+Weiter sei \(S\) der eindeutige Strahl auf der Geraden durch \(A\) und \(B\) mit Ursprung \(B\), der \(A\) nicht enthält. Nach \textbf{(K1)} existiert ein eindeutiger Punkt \(E \in S\), sodass 
+\[
+\overline{BE} \cong \overline{CD}.
+\]
+Wir definieren die Addition der Strecken durch 
+\[
+\overline{AB} + \overline{CD} := \overline{AE}.
+\]
+\end{definition}
+
+\begin{lemma}[Addition ist wohldefiniert]
+Sei \((\Pi, \Gamma, Z, \cong)\) wie in Definition~\ref{def:kongruenzaxiome_strecken}. Für 
+\[
+\overline{AB} \cong \overline{A'B'} \quad \text{und} \quad \overline{CD} \cong \overline{C'D'}
+\]
+gilt 
+\[
+\overline{AB} + \overline{CD} = \overline{A'B'} + \overline{C'D'}.
+\]
+\end{lemma}
+
+\begin{proof}
+Seien \(E\) und \(E'\) die Punkte, die in der Definition der Addition von Strecken für 
+\[
+\overline{AE} = \overline{AB} + \overline{CD} \quad \text{und} \quad \overline{A'E'} = \overline{A'B'} + \overline{C'D'}
+\]
+auftauchen. Nach Konstruktion gilt \(A * B * E\) und \(A' * B' * E'\). 
+
+Aus \(\overline{BE} \cong \overline{CD} \cong \overline{C'D'} \cong \overline{B'E'}\) folgt, dass 
+\[
+\overline{BE} \cong \overline{B'E'}.
+\]
+Mit \textbf{(K3)} ergibt sich daher 
+\[
+\overline{AE} \cong \overline{A'E'},
+\]
+und somit ist 
+\[
+\overline{AB} + \overline{CD} = \overline{A'B'} + \overline{C'D'}.
+\]
+\end{proof}
+
+\begin{lemma}[Addition ist kommutativ und assoziativ]
+Sei \((\Pi, \Gamma, Z, \cong)\) wie in Definition~\ref{def:kongruenzaxiome_strecken}. Für Segmente \(\overline{AB}\), \(\overline{CD}\), \(\overline{EF}\) gilt:
+\begin{enumerate}
+    \item \(\overline{AB} + \overline{CD} \cong \overline{CD} + \overline{AB},\)
+    \item \(\overline{AB} + (\overline{CD} + \overline{EF}) \cong (\overline{AB} + \overline{CD}) + \overline{EF}.\)
+\end{enumerate}
+\end{lemma}
+
+\begin{lemma}[Differenz von Segmenten]\label{lemma:diff_von_segmenten}
+Sei \((\Pi, \Gamma, Z, \cong)\) wie in Definition~\ref{def:kongruenzaxiome_strecken}. Seien \(A, B, C \in \Pi\) paarweise verschieden mit \(A * B * C\) sowie \(E, F \in \Pi\) paarweise verschieden auf einem Strahl \(S\) mit Ursprung \(D\). Wenn 
+\[
+\overline{AB} \cong \overline{DE} \quad \text{und} \quad \overline{AC} \cong \overline{DF}
+\]
+dann gilt \(D * E * F\) und \(\overline{BC} \cong \overline{EF}\). Das Segment \(\overline{BC}\) ist also die Differenz von \(\overline{AC}\) und \(\overline{AB}\).
+\end{lemma}
+
+\begin{proof}
+Sei \(F'\) der eindeutige Punkt auf einem Strahl \(S'\) mit Ursprung \(E\) auf der anderen Seite von \(D\), sodass \(\overline{BC} \cong \overline{EF'}\) nach \textbf{(K1)}. Es gilt außerdem \(D * E * F'\), was nach \textbf{(K3)} impliziert, dass \(\overline{AC} \cong \overline{DF'}\). 
+
+Nun beachten wir, dass \(F, F' \in S\). Nach Konstruktion gilt \(D \notin \overline{EF}\), und wegen \(D * E * F'\) folgt nach \textbf{(S3)}, dass \(E * D * F'\) ebenfalls nicht erfüllt ist. Dies bedeutet, dass \(D \notin \overline{EF'}\). Also liegen \(F\) und \(F'\) auf der gleichen Seite von \(D\). 
+
+Da zudem \(\overline{AC} \cong \overline{DF}\) vorausgesetzt ist, folgt aus \textbf{(K2)}, dass \(\overline{DF} \cong \overline{DF'}\). Durch \textbf{(K1)} ergibt sich daraus \(F = F'\). Somit gilt \(D * E * F\) und \(\overline{BC} \cong \overline{EF}\).
+\end{proof}
+
+\begin{definition}[Die Relation \(<\) für Segmente]
+Sei \((\Pi, \Gamma, Z, \cong)\) wie in Definition~\ref{def:kongruenzaxiome_strecken}. Für Segmente \(\overline{AB}\) und \(\overline{CD}\) sagen wir: 
+\[
+\overline{AB} < \overline{CD}
+\]
+falls ein Punkt \(E\) existiert mit \(C * E * D\) und \(\overline{AB} \cong \overline{CE}\). In diesem Fall heißt \(\overline{CD}\) größer als \(\overline{AB}\), und wir schreiben auch \(\overline{CD} > \overline{AB}\).
+\end{definition}
+
+\begin{proposition}[Wohldefinierte Ordnung]
+\label{prop:wohldefinierte_ordnung}
+Sei \((\Pi, \Gamma, Z, \cong)\) wie in Definition~\ref{def:kongruenzaxiome_strecken}. Es gilt:
+\begin{enumerate}
+    \item Für \(\overline{AB} \cong \overline{A'B'}\) und \(\overline{CD} \cong \overline{C'D'}\) gilt:
+    \[
+    \overline{AB} < \overline{CD} \iff \overline{A'B'} < \overline{C'D'}.
+    \]
+    \item Die Relation \(<\) liefert eine strenge Totalordnung:
+    \begin{enumerate}
+        \item[\((2.1)\)] \(\overline{AB} < \overline{CD}\) und \(\overline{CD} < \overline{EF} \implies \overline{AB} < \overline{EF}.\)
+        \item[\((2.2)\)] Für \(\overline{AB}\), \(\overline{CD}\) gilt genau eine der folgenden drei Möglichkeiten:
+        \[
+        \overline{AB} < \overline{CD}, \quad \overline{AB} \cong \overline{CD}, \quad \overline{AB} > \overline{CD}.
+        \]
+    \end{enumerate}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textbf{Zu (1):} 
+
+\textbf{Hinrichtung:} Es gelte \(\overline{AB} \cong \overline{A'B'}\), \(\overline{CD} \cong \overline{C'D'}\) und \(\overline{AB} < \overline{CD}\). Nach Definition existiert ein Punkt \(E\) mit \(C * E * D\) und \(\overline{CE} \cong \overline{AB}\). Sei \(E'\) der eindeutige Punkt auf dem Strahl \(\overrightarrow{\mathrm{C'D'}}\), sodass \(\overline{C'E'} \cong \overline{CE}\) (nach (K1)). Nach Lemma~\ref{lemma:diff_von_segmenten} gilt dann \(C' * E' * D'\). 
+
+Da \(\overline{A'B'} \cong \overline{AB} \cong \overline{CE} \cong \overline{C'E'}\), folgt \(\overline{A'B'} < \overline{C'D'}\).
+
+\textbf{Rückrichtung:} Das Argument folgt analog, indem man von \(\overline{A'B'} < \overline{C'D'}\) ausgeht.
+
+\textbf{Zu (2.1):}
+
+Es sei \(\overline{AB} < \overline{CD}\) und \(\overline{CD} < \overline{EF}\). Nach Voraussetzung existieren Punkte \(X \in \overrightarrow{\mathrm{CD}}\) und \(Y \in \overrightarrow{\mathrm{EF}}\) mit \(C * X * D\), \(\overline{CX} \cong \overline{AB}\), sowie \(E * Y * F\), \(\overline{EY} \cong \overline{CD}\). Sei \(Z \in \overrightarrow{\mathrm{EF}}\) der eindeutige Punkt mit \(\overline{EZ} \cong \overline{CX}\) (nach (K1)). 
+
+Lemma~\ref{lemma:diff_von_segmenten} impliziert \(E * Z * Y\), und somit gilt \(E * Z * F\). Wegen der Transitivität von \(\cong\) folgt \(\overline{EZ} \cong \overline{CX} \cong \overline{AB}\), also \(\overline{AB} < \overline{EF}\).
+
+\textbf{Zu (2.2):}
+
+Betrachte \(\overline{AB}\) und \(\overline{CD}\). Nach Definition existiert ein Punkt \(E \in \overrightarrow{\mathrm{CD}}\) mit \(\overline{AB} \cong \overline{CE}\) (nach (K1)). Dann gilt genau eine der folgenden Möglichkeiten:
+\begin{itemize}
+    \item \(E = D\): Dies entspricht \(\overline{AB} \cong \overline{CD}\).
+    \item \(C * E * D\): Dies entspricht \(\overline{AB} < \overline{CD}\).
+    \item \(C * D * E\): Dies entspricht \(\overline{CD} < \overline{AB}\).
+\end{itemize}
+
+Die Konstellation \(D * C * E\) ist ausgeschlossen, da \(D\) und \(E\) auf der gleichen Seite von \(C\) liegen müssen. Da die Möglichkeiten disjunkt sind, kann nur eine von ihnen zutreffen. Damit ist die Aussage gezeigt.
+\end{proof}
+
+\begin{definition}[Kongruenzaxiome für Winkel]
+\label{def:kongruenzaxiome_winkel}
+Es sei \((\Pi, \Gamma, Z, \cong)\) wie in Definition~\ref{def:kongruenzaxiome_strecken}. Wir führen auf der Menge 
+\[
+\{\angle ABC : A, B, C \in \Pi \text{ nicht kollinear}\}
+\]
+eine Relation \(\cong_w\) ein, die als \textbf{Kongruenzrelation für Winkel} bezeichnet wird, falls die folgenden Kongruenzaxiome erfüllt sind:
+\begin{enumerate}
+    \item[\textbf{(K4)}]
+    Sei \(\angle BAC\) ein Winkel und \(\overrightarrow{\rm DF}\) ein Strahl. Dann existiert genau ein Strahl \(\overrightarrow{\rm DE}\) auf einer gegebenen Seite der Geraden durch \(D, F\), sodass 
+    \[
+    \angle BAC \cong_w \angle EDF.
+    \]
+    \item[\textbf{(K5)}]
+    Für drei Winkel \(\alpha\), \(\beta\), \(\gamma\) gilt:
+    \[
+    \alpha \cong_w \beta \quad \text{und} \quad \beta \cong_w \gamma \implies \alpha \cong_w \gamma,
+    \]
+    und jeder Winkel ist zu sich selbst kongruent.
+    \item[\textbf{(K6)}]
+    (Satz über Seite-Winkel-Seite, SWS) Seien Dreiecke \(\triangle ABC\) und \(\triangle DEF\) gegeben, mit
+    \[
+    \overline{AB} \cong \overline{DE}, \quad \overline{AC} \cong \overline{DF}, \quad \angle BAC \cong_w \angle EDF.
+    \]
+    Dann folgt:
+    \[
+    \overline{BC} \cong \overline{EF}, \quad \angle ACB \cong_w \angle DFE, \quad \angle CBA \cong_w \angle FED.
+    \]
+\end{enumerate}
+Ein Tupel \((\Pi, \Gamma, Z, \cong, \cong_w)\), das die oben genannten Axiome erfüllt, heißt \textbf{Hilbertebene}.
+\end{definition}
+
+\begin{lemma}[\(\cong_w\) ist eine Äquivalenzrelation]
+\label{lemma:konw_aequivalenz}
+Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxiome_winkel}. Dann ist \(\cong_w\) auf der Menge 
+\[
+\{\angle ABC : A, B, C \in \Pi \text{ nicht kollinear}\}
+\]
+eine Äquivalenzrelation.
+\end{lemma}
+
+\begin{proof}
+Der Beweis erfolgt analog zu Lemma~\ref{lemma:kong_ist_äqu}.
+\end{proof}
+
+\begin{definition}[Summe von Winkeln]
+\label{def:summe_winkel}
+Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxiome_winkel}. Sei \(\angle BAC\) ein Winkel und \(\overrightarrow{\rm AD}\) ein Strahl im Inneren von \(\angle BAC\). Wir definieren die Summe der Winkel durch:
+\[
+\angle DAC + \angle BAD := \angle BAC.
+\]
+\end{definition}
+
+\begin{definition}[Nebenwinkel]
+\label{def:nebenwinkel}
+Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxiome_winkel}. Sei \(\angle BAC\) ein Winkel und \(D \in \overrightarrow{\rm AC}\), wobei \(D\) auf der anderen Seite von \(C\) bezüglich \(A\) liegt. Dann nennen wir \(\angle DAB\) den \emph{Nebenwinkel} von \(\angle BAC\).
+\end{definition}
+
+\begin{proposition}[Nebenwinkel sind kongruent]\label{prop:nebenwinkel_kongruent}
+Sei \((\Pi, \Gamma, Z, \cong, \cong_w)\) wie in Definition~\ref{def:kongruenzaxiome_winkel}. Es sei \(\angle BAD\) ein Nebenwinkel von \(\angle BAC\). Ist \(\angle B'A'D'\) Nebenwinkel von \(\angle B'A'C'\) und \(\angle BAC \cong_w \angle B'A'C'\), so gilt:
+\[
+\angle BAD \cong_w \angle B'A'D'.
+\]
+\end{proposition}
+
+\begin{proof}
+Wir können mit Hilfe von (K4) annehmen, dass \(AB \cong A'B'\), \(AC \cong A'C'\), und \(AD \cong A'D'\). 
+
+Konstruiere die Geraden \(\overline{BD}\), \(\overline{BC}\), \(\overline{B'D'}\) und \(\overline{B'C'}\). Betrachte die Dreiecke \(\triangle ABC\) und \(\triangle A'B'C'\). Nach Voraussetzung gilt:
+\[
+AB \cong A'B', \quad AC \cong A'C', \quad \angle BAC \cong_w \angle B'A'C'.
+\]
+Aus (K6) folgt:
+\[
+BC \cong B'C' \quad \text{und} \quad \angle BCA \cong_w \angle B'C'A'.
+\]
+
+Betrachte nun die Dreiecke \(\triangle DBC\) und \(\triangle D'B'C'\). Da \(AC \cong A'C'\), \(AD \cong A'D'\), und \(D * A * C\), \(D' * A' * C'\) gilt, folgt mit (K3):
+\[
+CD \cong C'D', \quad \angle BCA \cong_w \angle B'C'A', \quad BC \cong B'C'.
+\]
+Mit (K6) erhalten wir:
+\[
+BD \cong B'D' \quad \text{und} \quad \angle BDA \cong_w \angle B'D'A'.
+\]
+
+Zusammen mit der Tatsache, dass \(DA \cong D'A'\) gilt, folgt erneut mit (K6), dass:
+\[
+\angle BAD \cong_w \angle B'A'D'.
+\]
+\end{proof}
+
+\begin{definition}[Gegenwinkel]
+\label{def:gegenwinkel}
+In einer Hilbertebene sei \(\alpha = \angle BAC\) ein Winkel. Seien \(B'\) und \(C'\) Punkte auf der jeweils anderen Seite von \(B\) bzw. \(C\) bezüglich \(A\) auf \(\overrightarrow{AB}\) bzw. \(\overrightarrow{AC}\). Dann heißt \(\alpha' = \angle B'AC'\) der \emph{Gegenwinkel} von \(\alpha\).
+\end{definition}
+
+% TikZ-Diagramm
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    % Punkte definieren
+    \coordinate[label=below right:$A$] (A) at (0,0);
+    \coordinate[label=below:$B$] (B) at (3,0);
+    \coordinate[label=right:$C$] (C) at (1.5,2);
+    \coordinate[label=above:$B'$] (B') at (-3,0);
+    \coordinate[label=left:$C'$] (C') at (-1.5,-2);
+    
+    % Strahlen zeichnen
+    \draw[thick] (A) -- (B);
+    \draw[thick] (A) -- (C);
+    \draw[thick] (A) -- (B');
+    \draw[thick] (A) -- (C');
+    
+    % Winkel markieren
+    \draw[thick] (1.2,0.1) arc[start angle=0, end angle=60, radius=0.9cm];
+    \node at (1.3,0.6) {\(\alpha\)};
+    \draw[thick] (-1.2,-0.1) arc[start angle=180, end angle=240, radius=0.9cm];
+    \node at (-1.3,-0.6) {\(\alpha'\)};
+    \draw[thick] (0.5,1) arc[start angle=58, end angle=180, radius=1.1cm];
+    \node at (-1.3,0.8) {\(\beta\)};
+\end{tikzpicture}
+\end{center}
+
+\begin{corollary}[Gegenwinkel sind kongruent]
+    In einer Hilbertebene sind Gegenwinkel zueinander kongruent.
+\end{corollary}
+
+\begin{proof}
+    Mit den Bezeichnungen aus der Skizze gilt: $\alpha$, $\alpha'$ sind Nebenwinkel von $\beta$. Da $\beta$ kongruent zu sich selbst ist, folgt aus Proposition~\ref{prop:nebenwinkel_kongruent}: $$\alpha\cong_w\alpha'$$
+\end{proof}
+
+
+\end{document}
