@@ -365,7 +365,7 @@ Es sei \((\Pi, \Gamma)\) eine Inzidenzgeometrie und \(Z \subseteq \{ (A, B, C) \
 \textbf{Bemerkung:} Wir betrachten \(Z\) als die Menge der Tripel von Punkten, bei denen die Beziehung der \glqq Zwischenliegenschaft\grqq{} zwischen den Punkten definiert ist.
 \end{definition}
 
-\begin{definition}[Segmente und Dreiecke]
+\begin{definition}[Segmente und Dreiecke]\label{def:segmente_dreiecke}
 Sei \((\Pi, \Gamma, Z)\) wie in Definition~\ref{def:strecken_axiome}. Seien \(A, B \in \Pi\) mit \(A \neq B\), dann setzen wir
 \[
 \overline{AB} := \{A, B\} \cup \{C \in \Pi : A * C * B\}.
@@ -486,7 +486,7 @@ Wie im Beweis von Lemma~\ref{lemma:äquivalenzrelation}, Fall 2, wählen wir $D 
 \end{proof}
 \end{lemma}
 
-\begin{corollary}[Trennung der Geraden]
+\begin{corollary}[Trennung der Geraden]\label{cor:trennung_geraden}
 Es sei $(\Pi, \Gamma, Z)$ wie in Definition~\ref{def:strecken_axiome}, $A \in g \in \Gamma$.  
 Es existieren $M_1', M_2' \subseteq g \setminus \{A\}$, beide nicht leer, sodass  
 $g \setminus \{A\} = M_1' \sqcup M_2'$ (die zwei Seiten von $g$ bezüglich $A$) und Folgendes gilt:
@@ -547,13 +547,28 @@ Das \textbf{Innere} eines Winkels $\angle BAC$ ist definiert als die Menge
 Das \textbf{Innere} eines Dreiecks $\triangle ABC$ ist der Schnitt der Inneren der Winkel $\angle ABC$, $\angle BCA$, $\angle CAB$.
 \end{definition}
 
-\begin{proposition}[Crossbar Satz]
+\begin{proposition}[Crossbar Satz]\label{prop:crossbar}
 Sei $(\Pi, \Gamma, Z)$ wie in Definition~\ref{def:strecken_axiome}. Sei $\angle BAC$ ein Winkel, $D$ ein Punkt im Inneren von $\angle BAC$. 
 
 Dann gilt: $\overline{AD}$ schneidet $\overline{BC}$.
 \end{proposition}
 
 \begin{proof}
+Nutze (S2), um einen Punkt $E$ zu konstruieren mit $E * A * C$. Betrachte das Dreieck $\triangle EBC$. Nach Konstruktion schneidet die Gerade $g$ durch $\overline{AD}$ die Seite $\overline{EC}$ in $A$. Falls $g \cap \overline{BE} = \emptyset$, folgt mit dem Pasch-Axiom $g \cap \overline{BC} \neq \emptyset$ (beachte $B \notin g$).
+
+Bezeichne die Gerade durch $A$ und $B$ mit $h$. Es gilt nach Proposition~\ref{prop:eindeutig_schnittpunkt}, dass $\overline{BE} \cap h = \{B\}$. Nach Proposition~\ref{prop:trennung_der_ebene} liegen alle Punkte von $\overline{BE} \setminus \{B\}$ auf derselben Seite von $h$. 
+
+Angenommen, es existiert ein Punkt $P \in \overline{EB}$ mit $\overline{PE} \cap h \neq \emptyset$, dann ist $\overline{PE} \cap h = \{B\}$. Das impliziert $B \in \overline{PE}$. Nach Definition~\ref{def:segmente_dreiecke} ist dies äquivalent zu $P * B * E$, was mit $E * P * B$ einen Widerspruch zu (S3) erzeugt.
+
+Nach Konstruktion liegen $E$ und $C$ auf verschiedenen Seiten bezüglich $h$. Analog dazu liegen alle Punkte von $\overline{AC} \setminus \{A\}$ auf derselben Seite wie $C$. Nach Lemma~\ref{lemma:äquivalenzrelation} liegen alle Punkte von $\overrightarrow{\rm EB} \setminus \{B\}$ und $C$ auf verschiedenen Seiten von $h$.
+
+Da $D$ im Inneren von $\angle BAC$ liegt, sind $D$ und $C$ auf derselben Seite von $h$. Nach Korollar~\ref{cor:trennung_geraden} liegt $\overrightarrow{\rm AD} \setminus \{A\}$ ebenfalls auf derselben Seite von $h$ wie $C$. Somit folgt mit Proposition~\ref{prop:trennung_der_ebene}, dass $\overrightarrow{\rm BE} \cap \overrightarrow{\rm AD} = \emptyset$.
+
+Ein analoges Argument, bei dem die Gerade $g$ die Rolle von $h$ einnimmt, zeigt, dass $\overline{BE} \setminus \{E\}$ auf derselben Seite von $g$ liegt und nicht den Strahl mit Ursprung $A$ und entgegengesetzter Richtung von $\overrightarrow{\rm AD}$ schneiden kann. 
+
+Insgesamt schneidet $\overline{BE}$ die Gerade durch $A$ und $D$ nicht. Also gilt $g \cap \overline{BC} \neq \emptyset$, d.h., es existiert ein Punkt $F \in \overline{BC} \cap g$.
+
+Zu zeigen bleibt, dass $F \in \overrightarrow{\rm AD}$ liegt. Beachte, dass $B$ und $F$ auf derselben Seite der Geraden durch $A$ und $C$ liegen (da $F \in \overline{BC} \setminus \{C\}$ auf derselben Seite wie $B$). Ebenso sind $B$ und $D$ auf derselben Seite der Geraden durch $A$ und $C$. Nach Proposition~\ref{prop:trennung_der_ebene} folgt, dass $F$ auf derselben Seite der Geraden durch $A$ und $C$ liegt wie $D$. Mit Korollar~\ref{cor:trennung_geraden} folgt, dass $D$ und $F$ auf derselben Seite von $A$ auf der Geraden durch $A$ und $D$ liegen.
 \end{proof}
 
 \subsection{Kongruenzaxiome für Strecken}
