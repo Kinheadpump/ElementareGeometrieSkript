@@ -71,7 +71,7 @@ Geometrie kann aus verschiedenen Blickwinkeln betrachtet werden, unter anderem:
 
 In der \textbf{Differentialgeometrie} interessiert man sich für Größen wie Länge, Winkel, Krümmung und deren explizite Berechnung. 
 
-Im Gegensatz dazu betrachtet die \textbf{Topologie} nur das qualitative Verhalten geometrischer Objekte, unabhängig von genauen "Messungen".
+Im Gegensatz dazu betrachtet die \textbf{Topologie} nur das qualitative Verhalten geometrischer Objekte, unabhängig von genauen \glqq Messungen\grqq{}.
 
 Ein klassisches Beispiel ist das \textbf{Königsberger Brückenproblem}:
 
@@ -941,7 +941,7 @@ In einer Hilbertebene heißt ein Winkel \(\alpha\) \textbf{rechter Winkel}, fall
 Zwei Geraden heißen \textbf{orthogonal}, falls sie sich schneiden und einer (und daher alle) der durch ihren Schnittpunkt gebildeten Winkel rechte Winkel sind.
 \end{definition}
 
-\begin{proposition}[Alle Rechte Winkel sind kongruent]
+\begin{proposition}[Alle Rechte Winkel sind kongruent]\label{prop:rechte_winkel_kongruent}
 In einer Hilbertebene sind zwei rechte Winkel kongruent.
 \end{proposition}
 
@@ -992,7 +992,7 @@ Mit (K4) folgt, dass \(\overrightarrow{\rm BD} = \overrightarrow{\rm BA}\). Die 
 Somit muss \(\overline{AB} \cong \overline{AC}\) gelten.
 \end{proof}
 
-\begin{proposition}[SSS]
+\begin{proposition}[SSS]\label{prop:SSS}
 In einer Hilbertebene gilt für zwei Dreiecke \(\triangle ABC\) und \(\triangle A'B'C'\):
 \[
 \overline{AB} \cong \overline{A'B'}, \quad \overline{AC} \cong \overline{A'C'}, \quad \overline{BC} \cong \overline{B'C'}
@@ -1215,15 +1215,198 @@ bildet mit der Komposition eine Gruppe.
 \begin{definition}[Existenz von Bewegungen]
 In einer Hilbertebene sagen wir, dass die Bedingung \textbf{(EB)} erfüllt ist, wenn die folgenden Eigenschaften gelten:
 \begin{enumerate}
-    \item Für alle \(A, A' \in \Pi\) existiert eine Bewegung \(\phi: \Pi \to \Pi\) mit \(\phi(A) = A'\).
+    \item  Für alle \(A, A' \in \Pi\) existiert eine Bewegung \(\phi: \Pi \to \Pi\) mit \(\phi(A) = A'\) (Translation). 
     \item Für alle \(O \in \Pi\) und \(A, A' \in \Pi \setminus \{O\}\) existiert eine Bewegung \(\phi: \Pi \to \Pi\), sodass:
     \[
-    \phi(O) = O \quad \text{und} \quad \phi(\overrightarrow{\rm OA}) = \overrightarrow{\rm OA'}.
-    \]
+    \phi(O) = O \quad \text{und} \quad \phi(\overrightarrow{\rm OA}) = \overrightarrow{\rm OA'}
+    \] (Drehung).
     \item Für jede Gerade \(g \in \Gamma\) existiert eine Bewegung \(\phi: \Pi \to \Pi\), sodass:
     \[
-    \forall P \in g : \phi(P) \in g \quad \text{und} \quad \phi \text{ vertauscht die beiden Seiten von } g.
-    \]
+    \forall P \in g : \phi(P) \in g \quad \text{und} \quad \phi \text{ vertauscht die beiden Seiten von } g
+    \] (Spiegelung).
 \end{enumerate}
 \end{definition}
+
+Eine große Anzahl an Symmetrien ist in gewisser Weise äquivalent zu (K6).
+
+\begin{proposition}[(\(\text{EB}) \implies (\text{K6}\))]
+In einer Hilbertebene, in der (K6) nicht zum Axiomensystem gehört, gilt:
+\[
+\text{(EB)} \implies \text{(K6)}.
+\]
+\end{proposition}
+
+\begin{proof}
+Seien \(\triangle ABC\) und \(\triangle A'B'C'\) zwei Dreiecke mit 
+\[
+\overline{AB} \cong \overline{A'B'}, \quad \overline{AC} \cong \overline{A'C'}, \quad \angle BAC \cong_w \angle B'A'C'.
+\]
+Nach (EB) existiert eine Bewegung \(\phi: \Pi \to \Pi\) mit \(\phi(A) = A'\). Für \(B'' := \phi(B)\) gilt:
+\[
+\overline{A'B''} \cong \overline{AB},
+\]
+und wegen der Transitivität von \(\cong\) folgt:
+\[
+\overline{A'B'} \cong \overline{AB} \cong \overline{A'B''}.
+\]
+
+Wieder nach (EB) existiert eine Bewegung \(\psi: \Pi \to \Pi\), sodass:
+\[
+\psi(\overrightarrow{\rm A'B''}) = \overrightarrow{\rm A'B'}.
+\]
+Nach der Eindeutigkeit von (K1) gilt:
+\[
+\psi(B'') = B'.
+\]
+
+Definiere \(C'' := \psi \circ \phi(C)\). Betrachte nun die Gerade \(A'B'\) und die Strahlen \(\overrightarrow{\rm A'C'}\) und \(\overrightarrow{\rm A'C''}\). Wieder nach (EB) existiert eine Bewegung \(G: \Pi \to \Pi\), die die Gerade \(A'B'\) punktweise fixiert und die Seiten bezüglich \(A'B'\) vertauscht.
+
+Falls \(\overrightarrow{\rm A'C'}\) und \(\overrightarrow{\rm A'C''}\) auf derselben Seite von \(A'B'\) liegen, setze:
+\[
+\theta := \psi \circ \phi.
+\]
+Andernfalls setze:
+\[
+\theta := G \circ \psi \circ \phi.
+\]
+
+Definiere \(C''' := \theta(C)\). Dann liegen \(C'\) und \(C'''\) auf derselben Seite von \(A'B'\). Da \(\theta\) eine Bewegung ist, gilt:
+\[
+\angle BAC \cong_w \angle B'A'C'' \quad \text{und} \quad \angle BAC \cong_w \angle B'A'C',
+\]
+woraus folgt:
+\[
+\angle B'A'C' \cong_w \angle B'A'C'' \implies \overrightarrow{\rm A'C'} = \overrightarrow{\rm A'C'''}.
+\]
+
+Es folgt wie oben, wegen der Transitivität von \(\cong\) und der Eindeutigkeit in (K1):
+\[
+\overline{A'C'} \cong \overline{AC}, \quad \overline{A'C'} \cong \overline{A'C'''} \implies C' = C'''.
+\]
+
+Insgesamt gilt:
+\[
+\theta(A) = A', \quad \theta(B) = B', \quad \theta(C) = C'.
+\]
+Da \(\theta\) eine Bewegung ist, folgt die Kongruenz der Dreiecke:
+\[
+\triangle ABC \cong \triangle A'B'C'.
+\]
+\end{proof}
+
+\begin{proposition}[(\(\text{K6}) \implies (\text{EB}\))]
+In einer Hilbertebene gilt (EB)
+\end{proposition}
+
+\begin{proof}
+\textbf{Plan:} Wir konstruieren zunächst Spiegelungen und bauen die übrigen Bewegungen daraus auf.
+
+Es sei \(g\) eine Gerade. Wir konstruieren eine Spiegelung \(G\) an \(g\), die Punkte auf \(g\) invariant lässt und die beiden Seiten von \(g\) vertauscht:
+\begin{itemize}
+    \item Falls \(P \in g\), setze \(G(P) := P\).
+    \item Falls \(P \notin g\), betrachte das Lot von \(P\) auf \(g\). Es existiert ein eindeutiger Punkt \(P_0 \in g\), sodass \(\overrightarrow{\rm P_0P}\) senkrecht auf \(g\) steht.  
+    Nach (K1) existiert ein Punkt \(P'\) auf der anderen Seite von \(P_0\) bezüglich \(g\) mit \(\overline{P_0P'} \cong \overline{P_0P}\). Setze \(G(P) := P'\).
+\end{itemize}
+
+Offenbar gilt \(G^2 = \text{Id}\), also ist \(G\) bijektiv.  
+
+Seien \(A, B \notin g\). Wir zeigen, dass \(\overline{AB} \cong \overline{A'B'}\), wobei \(A' = G(A)\) und \(B' = G(B)\).
+\begin{itemize}
+    \item Falls \(A, B\) auf derselben Lotgeraden zu \(g\) liegen, folgt die Behauptung direkt aus der Subtraktion von Segmenten.
+    \item Falls \(A, B\) auf unterschiedlichen Lotgeraden zu \(g\) liegen, ergibt sich eine Konfiguration wie in der Skizze.  
+    Nach Konstruktion gilt:
+    \[
+    \overline{AA_0} \cong \overline{A_0A'} \quad \text{und} \quad \overline{BB_0} \cong \overline{B_0B'}.
+    \]
+    Außerdem sind \(\angle AA_0B_0\) und \(\angle A'A_0B_0\) rechte Winkel, sodass nach Proposition~\ref{prop:rechte_winkel_kongruent} gilt:
+    \[
+    \triangle AA_0B_0 \cong \triangle A'A_0B_0.
+    \]
+    Mit (K6) folgt:
+    \[
+    \overline{AB_0} \cong \overline{A'B_0} \quad \text{und} \quad \angle AB_0A_0 \cong_w \angle A'B_0A_0.
+    \]
+    Daraus folgt:
+    \[
+    \angle AB_0B \cong_w \angle A'B_0B',
+    \]
+    und erneut mit (K6) erhalten wir \(\overline{AB} \cong \overline{A'B'}\).
+\end{itemize}
+
+Für \(A, B, C\) drei nicht kollineare Punkte gilt, dass auch \(A', B', C'\) nicht kollinear sind. Wären \(A', B', C'\) kollinear, so gelte o.B.d.A. \(A' * B' * C'\). Dann folgt:
+\[
+\overline{A'C'} = \overline{A'B'} + \overline{B'C'} \implies \overline{AC} = \overline{AB} + \overline{BC},
+\]
+ein Widerspruch.  
+
+Es gilt:
+\[
+\overline{A'B'} \cong \overline{AB}, \quad \overline{A'C'} \cong \overline{AC}, \quad \overline{B'C'} \cong \overline{BC}.
+\]
+Mit (SSS)(Proposition~\ref{prop:SSS}):
+\[
+\angle BAC \cong_w \angle B'A'C'.
+\]
+
+Insbesondere erhält G Winkel. Analog wie hier sieht man, dass G Geraden und auch Streckenordnung erhält. Wir haben die Existenz von Spiegelungen gezeigt.
+
+Seien \(A, A' \in \Pi\). Betrachte den Mittelpunkt \(M\) zwischen \(A\) und \(A'\) und die Senkrechte durch \(M\), die wir \(S\) nennen. Nach Konstruktion gilt \(G_S(A) = A'\). Dies zeigt die Existenz von Translationen.  
+
+Für Drehungen seien \(O, A, A'\) drei nicht kollineare Punkte. Sei \(W\) die Winkelhalbierende von \(\angle AOA'\). Nach Konstruktion gilt \(G(O) = O\) und \(G(\overrightarrow{\rm OA}) = \overrightarrow{\rm OA'}\).
+
+Damit ist (EB) bewiesen.
+\end{proof}
+
+\begin{center}
+\begin{tikzpicture}
+    % Rechteck zeichnen
+    \draw[thick] (0,0) rectangle (4,2);
+    \draw[thick] (0,0) rectangle (4,-2);
+    % Diagonale von rechts oben nach links unten
+    \draw[thick] (0,2) -- (4,0);
+    \draw[thick] (0,-2) -- (4,0);
+    % Punkte markieren und beschriften
+    \fill (0,0) circle (2pt) node[left] {$A_0$};
+    \fill (4,0) circle (2pt) node[right] {$B_0$};
+    \fill (4,2) circle (2pt) node[above right] {B};
+    \fill (0,2) circle (2pt) node[above left] {A};
+    \fill (0,-2) circle (2pt) node[below left] {$A'$};
+    \fill (4,-2) circle (2pt) node[below right] {$B'$};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Hilbertebene mit (P)}
+
+\begin{proposition}
+In einer Hilbertebene mit (P) seien \(\overline{AB}\) und \(\overline{AP}\) zwei Geraden mit \(\overline{AB} \cap \overline{AP} = \{A\}\), und sei \(\overline{PD}\) die eindeutige zu \(\overline{AB}\) parallele Gerade durch \(P\). Dann gilt:
+\begin{enumerate}
+    \item (\textbf{Stufenwinkelsatz}) Liegen \(B\) und \(D\) auf derselben Seite von \(\overline{AP}\), so existiert ein Punkt \(C\) mit \(A * P * C\) und 
+    \[
+    \angle DPC \cong_w \angle BAC.
+    \]
+    \item Jeder Strahl im Inneren von \(\angle APD\) mit Ursprung \(P\) schneidet \(\overline{AB}\) in einem Punkt \(E\), der auf derselben Seite von \(\overline{PA}\) wie \(D\) liegt.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textbf{(1) Stufenwinkelsatz:}  
+Nach (S2) existiert ein Punkt \(C\) mit \(A * P * C\). Nach (K4) existiert ein eindeutiger Strahl \(\overrightarrow{\rm PD'}\) mit:
+\[
+\angle D'PC \cong_w \angle BAC,
+\]
+wobei \(D'\) auf derselben Seite von \(\overline{AC}\) wie \(D\) liegt. Wie im Beweis von Proposition 1.42 folgt, dass \(\overrightarrow{\rm PD'} \parallel \overline{AB}\).  
+
+Das Parallelaxiom (P) impliziert, dass \(\overline{PD'}\) die eindeutige Parallele zu \(\overline{AB}\) durch \(P\) ist. Da \(\overline{PD'} = \overline{PD}\), folgt \(\angle DPC \cong_w \angle BAC\).  
+
+\textbf{(2)}  
+Sei \(\overrightarrow{\rm PE}\) ein Strahl im Inneren von \(\angle CAD\). Die Gerade \(\overline{PE}\) ist daher nicht parallel zu \(\overline{AB}\), das heißt:
+\[
+\overline{PE} \cap \overline{AB} \neq \emptyset.
+\]
+Da \(\overrightarrow{\rm PE} \setminus \{P\}\) auf derselben Seite von \(\overline{DP}\) wie \(\overline{AB}\) liegt, schneidet \(\overrightarrow{\rm PE}\) die Gerade \(\overline{AB}\) in einem Punkt \(E\).  
+
+Außerdem liegt \(\overrightarrow{\rm PE} \setminus \{P\}\) auf derselben Seite von \(\overline{PA}\) wie \(D\), also liegt \(E\) auf derselben Seite von \(\overline{PA}\) wie \(D\). Die Aussage folgt.
+\end{proof}
+
+
 \end{document}
