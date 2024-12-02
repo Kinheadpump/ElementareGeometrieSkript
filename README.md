@@ -2,4 +2,4 @@
 
 Ein inoffizielles Skript der Elementaren Geometrie Vorlesung von Dr. Nepechiy des KIT
 
-Hier das [PDF]{https://github.com/Kinheadpump/ElementareGeometrieSkript/blob/main/SkriptOrdner/Elementare_Geometrie.pdf}.
+Hier das [PDF](https://github.com/Kinheadpump/ElementareGeometrieSkript/blob/main/SkriptOrdner/Elementare_Geometrie.pdf).
