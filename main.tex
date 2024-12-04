@@ -33,7 +33,6 @@
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{corollary}[definition]{Korollar}
 
-
 % Makros
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\notimplies}{\centernot\implies}
@@ -1377,7 +1376,7 @@ Damit ist (EB) bewiesen.
 
 \subsection{Hilbertebene mit (P)}
 
-\begin{proposition}
+\begin{proposition}\label{prop:stufenwinkelsatz}
 In einer Hilbertebene mit (P) seien \(\overline{AB}\) und \(\overline{AP}\) zwei Geraden mit \(\overline{AB} \cap \overline{AP} = \{A\}\), und sei \(\overline{PD}\) die eindeutige zu \(\overline{AB}\) parallele Gerade durch \(P\). Dann gilt:
 \begin{enumerate}
     \item (\textbf{Stufenwinkelsatz}) Liegen \(B\) und \(D\) auf derselben Seite von \(\overline{AP}\), so existiert ein Punkt \(C\) mit \(A * P * C\) und 
@@ -1398,7 +1397,7 @@ wobei \(D'\) auf derselben Seite von \(\overline{AC}\) wie \(D\) liegt. Wie im B
 
 Das Parallelaxiom (P) impliziert, dass \(\overline{PD'}\) die eindeutige Parallele zu \(\overline{AB}\) durch \(P\) ist. Da \(\overline{PD'} = \overline{PD}\), folgt \(\angle DPC \cong_w \angle BAC\).  
 
-\textbf{(2)}  
+\textbf{(2):}  
 Sei \(\overrightarrow{\rm PE}\) ein Strahl im Inneren von \(\angle CAD\). Die Gerade \(\overline{PE}\) ist daher nicht parallel zu \(\overline{AB}\), das heißt:
 \[
 \overline{PE} \cap \overline{AB} \neq \emptyset.
@@ -1408,11 +1407,206 @@ Da \(\overrightarrow{\rm PE} \setminus \{P\}\) auf derselben Seite von \(\overli
 Außerdem liegt \(\overrightarrow{\rm PE} \setminus \{P\}\) auf derselben Seite von \(\overline{PA}\) wie \(D\), also liegt \(E\) auf derselben Seite von \(\overline{PA}\) wie \(D\). Die Aussage folgt.
 \end{proof}
 
-\begin{proposition}[Innenwinkelsumme]
+\begin{proposition}[Innenwinkelsumme]\label{prop:innenwinkelsumme}
 Es sei eine Hilbertebene mit (P) gegeben und \(\triangle ABC\) ein Dreieck. Sei \(\angle CAD\) der Nebenwinkel von \(\angle CAB\). Dann existiert ein Strahl \(\overrightarrow{\rm AE}\) im Inneren von \(\angle CAD\), sodass:
 \[
 \angle EAD \cong_w \angle ABC \quad \text{und} \quad \angle EAC \cong_w \angle ACB.
 \]
 \end{proposition}
+
+\begin{theorem}[Thales]
+In einer Hilbertebene mit (P) sei \(\triangle ABC\) ein gegebenes Dreieck, und sei \(M \in \overline{AB}\) der Mittelpunkt von \(\overline{AB}\), sodass:
+\[
+\overline{AM} \cong \overline{MB} \quad \text{und} \quad \overline{MC} \cong \overline{MC}.
+\]
+Dann ist \(\angle BCA\) ein rechter Winkel.
+\end{theorem}
+
+\begin{proof}
+Die Dreiecke \(\triangle AMC\) und \(\triangle BMC\) sind gleichschenklig. Nach Proposition~\ref{prop:pons_asinorum} gilt:
+\[
+\angle CAM \cong_w \angle ACM \quad (= \alpha) \quad \text{und} \quad \angle CBM \cong_w \angle BCM \quad (= \beta).
+\]
+
+Sei nun \(\overrightarrow{\rm ME'}\) ein Strahl wie in Proposition~\ref{prop:innenwinkelsumme} im Inneren von \(\angle CMB\). Dann gilt:
+\[
+\alpha \cong_w \angle CME' \cong_w \angle BME'.
+\]
+
+Nach dem Crossbar-Satz (Proposition~\ref{prop:crossbar}) existiert ein Punkt \(E \in \overline{BC}\). Mit dem Kongruenzsatz WSW erhalten wir, dass die Dreiecke \(\triangle CEM\) und \(\triangle MEB\) kongruent sind. Insbesondere gilt:
+\[
+\angle CEM \cong_w \angle BEM.
+\]
+
+Da \(\angle CEM\) und \(\angle BEM\) Nebenwinkel sind, sind beide rechte Winkel. Somit gilt:
+\[
+\overline{ME} \parallel \overline{AC}.
+\]
+
+Nach Proposition~\ref{prop:stufenwinkelsatz} folgt, dass \(\angle BCA\) ein rechter Winkel ist. Die Behauptung ist damit bewiesen.
+\end{proof}
+
+\subsection{Körper und Hilbertebenen mit (P)}
+
+Es gibt eine 1-zu-1-Korrespondenz zwischen Körpern mit zusätzlichen Annahmen und Hilbertebenen mit (P), die wir im Folgenden skizzieren wollen.
+
+\begin{definition}[Ordnung auf einem Körper]
+Eine \textbf{Ordnung} auf einem Körper \(\mathbb{K}\) ist eine Teilmenge \(P \subseteq \mathbb{K}\) (die Menge der positiven Elemente), die folgende Bedingungen erfüllt:
+\begin{enumerate}
+    \item Für alle \(a, b \in P\) gilt:
+    \[
+    a + b \in P \quad \text{und} \quad a \cdot b \in P.
+    \]
+    \item Für alle \(a \in \mathbb{K}\) gilt genau eine der folgenden Bedingungen:
+    \[
+    a \in P, \quad a = 0, \quad -a \in P.
+    \]
+\end{enumerate}
+Wir definieren die Relation \(<\) auf \(\mathbb{K}\) durch:
+\[
+a < b \iff b - a \in P \quad (\text{analog für } >).
+\]
+\end{definition}
+
+\begin{lemma}[Eigenschaften von geordneten Körpern]
+Es sei \(\mathbb{K}\) ein geordneter Körper, und sei \(P\) die Menge der positiven Elemente. Dann gilt:
+\begin{enumerate}
+    \item Für alle \(a \in \mathbb{K} \setminus \{0\}\) gilt:
+    \[
+    a^2 \in P.
+    \]
+    \item \(\mathbb{K}\) hat Charakteristik \(0\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\textbf{1.} Sei \(a \in \mathbb{K} \setminus \{0\}\). Dann gibt es zwei Fälle:
+\begin{itemize}
+    \item Falls \(a \in P\), so gilt nach der Definition von \(P\), dass \(a \cdot a \in P\).
+    \item Falls \(a \notin P\), dann ist \(-a \in P\). Es folgt:
+    \[
+    (-a) \cdot (-a) = a^2 \in P.
+    \]
+\end{itemize}
+
+\textbf{2.} Die Aussage über die Charakteristik ist trivial: Ein geordneter Körper kann nicht endliche Charakteristik haben, da in diesem Fall keine Ordnung konsistent definiert werden könnte.
+\end{proof}
+
+\textbf{Bemerkung:}
+Der Körper \(\mathbb{C}\) kann nicht geordnet werden.  
+Angenommen, \(\mathbb{C}\) wäre ein geordneter Körper, dann wäre \(1 = 1^2 \in P\), da \(1 > 0\). Andererseits wäre \(-1 = i^2 \in P\), was zu einem Widerspruch führt, da \(-1 \in P\) und \(1 \in P\) unmöglich gleichzeitig sein können.
+
+\begin{lemma}[Eigenschaften von \(<\)]
+Es sei \(\mathbb{K}\) ein geordneter Körper, und \(<\) sei wie in Definition 1.51 definiert. Dann gelten die folgenden Eigenschaften:
+\begin{enumerate}
+    \item Für alle \(a, b, c \in \mathbb{K}\) gilt:
+    \[
+    a < b, \; c \in \mathbb{K} \implies a + c < b + c.
+    \]
+    \item Für alle \(a, b, c \in \mathbb{K}\) gilt:
+    \[
+    a < b, \; b < c \implies a < c.
+    \]
+    \item Für alle \(a, b \in \mathbb{K}\) und \(c > 0\) gilt:
+    \[
+    a < b \implies ac < bc.
+    \]
+    \item Für alle \(a, b \in \mathbb{K}\) gilt genau eine der folgenden Bedingungen:
+    \[
+    a = b, \quad a < b, \quad b < a.
+    \]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\textbf{1.} Angenommen, \(a < b\), das heißt \(b - a \in P\). Dann gilt:
+\[
+(b + c) - (a + c) = b - a \in P.
+\]
+Daher \(a + c < b + c\).
+
+\textbf{2.} Angenommen, \(a < b\) und \(b < c\), das heißt \(b - a \in P\) und \(c - b \in P\). Da \(P\) unter Addition abgeschlossen ist, folgt:
+\[
+c - a = (c - b) + (b - a) \in P.
+\]
+Daher \(a < c\).
+
+\textbf{3.} Angenommen, \(a < b\), das heißt \(b - a \in P\), und \(c > 0\), das heißt \(c \in P\). Da \(P\) unter Multiplikation abgeschlossen ist, gilt:
+\[
+c \cdot (b - a) \in P.
+\]
+Das bedeutet:
+\[
+bc - ac = c \cdot (b - a) \in P.
+\]
+Daher \(ac < bc\).
+
+\textbf{4.} Für \(a, b \in \mathbb{K}\) gilt nach Definition von \(P\) und der Trichotomie:
+\[
+b - a \in P \implies a < b, \quad b - a = 0 \implies a = b, \quad a - b \in P \implies b < a.
+\]
+Genau eine dieser Bedingungen ist erfüllt.
+\end{proof}
+
+\begin{definition}[Pythagoreischer Körper]
+Ein Element \(x \in \mathbb{K}\) in einem Körper \(\mathbb{K}\) hat eine \textbf{Wurzel}, falls ein \(y \in \mathbb{K}\) existiert mit:
+\[
+y^2 = x.
+\]
+Der Körper \(\mathbb{K}\) heißt \textbf{pythagoreisch}, falls für alle \(x \in \mathbb{K}\) das Element \(1 + x^2\) eine Wurzel besitzt.
+\end{definition}
+
+\textbf{Bemerkung:}
+Die kartesische Ebene \(\Pi_\mathbb{K}\) über einem angeordneten, pythagoreischen Körper \(\mathbb{K}\) ist eine Hilbertebene mit (P).
+
+\begin{proposition}[(K1) $\iff \mathbb{K} \text{ pythagoreisch}$]
+Es sei \(\mathbb{K}\) ein angeordneter Körper und \(\Pi_\mathbb{K}\) die kartesische Ebene über \(\mathbb{K}\). Dann gilt:  
+\[
+\Pi_\mathbb{K} \text{ erfüllt (K1)} \iff \mathbb{K} \text{ ist pythagoreisch.}
+\]
+\end{proposition}
+
+\begin{proof}
+\textbf{Hinrichtung:}  
+Angenommen, \(\Pi_\mathbb{K}\) erfüllt (K1). Betrachte das Segment \(\overline{(0,0)(a,1)}\) und den Strahl durch \((0,0)\) und \((b,0)\).  
+Um einen Punkt \((b',0)\) auf dem Strahl zu finden, sodass:
+\[
+\overline{(0,0)(a,1)} \cong \overline{(0,0)(b',0)},
+\]
+muss gelten:
+\[
+1 + a^2 = b'^2.
+\]
+Das zeigt, dass \(\mathbb{K}\) pythagoreisch ist, da \(b' = \sqrt{1 + a^2} \in \mathbb{K}\) existieren muss.
+
+\textbf{Rückrichtung:}  
+Sei \(\mathbb{K}\) pythagoreisch. Für \(a, b \in \mathbb{K}\) mit \(a \neq 0\) können wir schreiben:
+\[
+a^2 + b^2 = |a| \cdot \sqrt{1 + c^2}, \quad \text{mit } c := \frac{b}{a}.
+\]
+Daraus folgt:
+\[
+\text{dist}(A,B) \in \mathbb{K} \quad \text{für alle Punkte } A, B \in \Pi_\mathbb{K}.
+\]
+
+Betrachte nun eine Gerade mit Steigung \(m \neq 0\), gegeben durch die Gleichung \(y = mx + b\), und einen Punkt \(A\) auf der Geraden.  
+Es sei \(A = (a, ma + b)\) für ein \(a \in \mathbb{K}\). Wir möchten ein Segment der Länge \(d \in \mathbb{K}\) abtragen. Gesucht ist ein Punkt \(C = (c, mc + b)\), sodass:
+\[
+\text{dist}(A, C) = d.
+\]
+
+Es folgt:
+\[
+\sqrt{(a - c)^2 + ((ma + b) - (mc + b))^2} = d,
+\]
+das heißt:
+\[
+\sqrt{(a - c)^2 + m^2(a - c)^2} = |a - c| \sqrt{1 + m^2}.
+\]
+
+Wenn \(\sqrt{1 + m^2} \in \mathbb{K}\) existiert, ist diese Gleichung lösbar für \(c\).  
+Da \(\mathbb{K}\) pythagoreisch ist, gilt \(\sqrt{1 + m^2} \in \mathbb{K}\). Somit ist die Abtragung des Segments möglich, und \(\Pi_\mathbb{K}\) erfüllt (K1).
+\end{proof}
+
 
 \end{document}
