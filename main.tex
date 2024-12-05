@@ -1608,5 +1608,76 @@ Wenn \(\sqrt{1 + m^2} \in \mathbb{K}\) existiert, ist diese Gleichung lösbar f�
 Da \(\mathbb{K}\) pythagoreisch ist, gilt \(\sqrt{1 + m^2} \in \mathbb{K}\). Somit ist die Abtragung des Segments möglich, und \(\Pi_\mathbb{K}\) erfüllt (K1).
 \end{proof}
 
+Wir wollen nun eine Äquivalenzrelation auf \(\Pi_\mathbb{K}\) einführen. Dazu definieren wir folgende Mengen:
+\begin{itemize}
+    \item \[
+    O(\mathbb{K}, 2) := \{M \in \mathbb{K}^{2 \times 2} \mid M^T \cdot M = I = M \cdot M^T\},
+    \]
+    die Menge der orthogonalen Matrizen über \(\mathbb{K}\).
+    \item \[
+    E(\mathbb{K}, 2) := \{\phi: \Pi_\mathbb{K} \to \Pi_\mathbb{K} \mid \exists M \in O(\mathbb{K}, 2), P \in \mathbb{K}^2, \, \phi(A) = M \cdot A + P \; \forall A \in \mathbb{K}^2\},
+    \]
+    die Menge der \textbf{euklidischen Bewegungen}, bestehend aus Transformationen durch orthogonale Matrizen und Translationen.
+    \item Für zwei Winkel \(\angle BAC\) und \(\angle EDF\) definieren wir die Äquivalenzrelation:
+    \[
+    \angle BAC \cong_w \angle EDF \iff \exists \phi \in E(\mathbb{K}, 2) \text{ mit } \phi(\angle BAC) = \angle EDF.
+    \]
+\end{itemize}
+
+\begin{lemma}[\(\Pi_\mathbb{K}\) erfüllt (EB)]
+Sei \(\Pi_\mathbb{K}\) die kartesische Ebene über \(\mathbb{K}\), und seien \(\Gamma\), \(Z\), \(\cong\) wie bisher definiert. Dann gilt:  
+\(\Pi_\mathbb{K}\) erfüllt (EB).
+\end{lemma}
+
+\begin{proof}
+\textbf{Zu (EB) 1:}  
+Es genügt zu zeigen, dass Translationen \(T_C\) der Form:
+\[
+T_C(A) := A + C
+\]
+Bewegungen sind. Für zwei Punkte \(A, B \in \Pi_\mathbb{K}\) gilt:
+\[
+d(T_C(A), T_C(B)) = d(A + C, B + C) = d(A, B).
+\]
+Da die Distanz invariant bleibt, ist \(T_C\) eine Bewegung.
+
+\textbf{Zu (EB) 2:}  
+Es genügt zu zeigen, dass Rotationen Bewegungen sind. Betrachte die Rotation, die den Punkt \((1,0)\) auf \(V = (V_1, V_2)\) mit \(V_1^2 + V_2^2 = 1\) abbildet. Sie ist gegeben durch:
+\[
+\phi_V(A) := \begin{pmatrix}
+V_1 & -V_2 \\
+V_2 & V_1
+\end{pmatrix} \cdot A.
+\]
+Für \(A, B \in \Pi_\mathbb{K}\) gilt:
+\[
+d(\phi_V(A), \phi_V(B)) = \| \phi_V(A) - \phi_V(B) \| = \| M_V \cdot (A - B) \| = \| A - B \|,
+\]
+wobei \(M_V\) die Rotationsmatrix ist. Da die Distanz invariant bleibt, ist \(\phi_V\) eine euklidische Bewegung.
+
+\textbf{Zu (EB) 3:}  
+Es genügt zu zeigen, dass Spiegelungen Bewegungen sind. Betrachte die Spiegelung an einer Achse mit Richtungsvektor \(V = (V_1, V_2)\) und \(V_1^2 + V_2^2 = 1\), definiert durch:
+\[
+S_V(A) := \begin{pmatrix}
+V_1 & V_2 \\
+V_2 & -V_1
+\end{pmatrix} \cdot A.
+\]
+Analog zur Rotation gilt:
+\[
+d(S_V(A), S_V(B)) = \| S_V(A) - S_V(B) \| = \| A - B \|,
+\]
+sodass \(S_V\) eine euklidische Bewegung ist.
+
+\textbf{Zusammenführung:}  
+Um zu zeigen, dass \((EB)\) 3 erfüllt ist, wähle beliebige Punkte \(A, B \in g\), einer gegebenen Geraden \(g\). Dann zeigt die folgende Komposition, dass \(\Pi_\mathbb{K}\) (EB) erfüllt:
+\[
+T_A \circ \phi_{B - A} \circ S_{(1,0)} \circ \phi_{B - A}^{-1} \circ T_{-A}.
+\]
+Diese Transformation ist eine Bewegung, die die Punkte \(A, B \in g\) belässt und die Seiten von \(g\) vertauscht. Somit ist auch (EB) 3 erfüllt.
+
+Da alle Bedingungen gezeigt wurden, erfüllt \(\Pi_\mathbb{K}\) (EB).
+\end{proof}
+
 
 \end{document}
